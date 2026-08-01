@@ -6,6 +6,10 @@
 import Foundation
 import os
 
+#if canImport(FirebaseCore)
+import FirebaseCore
+#endif
+
 #if canImport(FirebaseCrashlytics)
 import FirebaseCrashlytics
 #endif
@@ -20,34 +24,50 @@ public final class AppLoggerImpl: AppLogger {
     
     public init() {}
     
+    private var isFirebaseConfigured: Bool {
+        #if canImport(FirebaseCore)
+        return FirebaseApp.app() != nil
+        #else
+        return false
+        #endif
+    }
+    
     public func log(_ message: String) {
-        logger.debug("\(message, privacy: .public)")
+        logger.debug("\(message)")
         
         #if canImport(FirebaseCrashlytics)
-        Crashlytics.crashlytics().log(message)
+        if isFirebaseConfigured {
+            Crashlytics.crashlytics().log(message)
+        }
         #endif
     }
     
     public func recordError(_ error: Error, message: String? = nil) {
         if let message = message {
-            logger.error("\(message, privacy: .public): \(error.localizedDescription, privacy: .public)")
+            logger.error("\(message): \(error.localizedDescription)")
             #if canImport(FirebaseCrashlytics)
-            Crashlytics.crashlytics().log(message)
+            if isFirebaseConfigured {
+                Crashlytics.crashlytics().log(message)
+            }
             #endif
         } else {
-            logger.error("\(error.localizedDescription, privacy: .public)")
+            logger.error("\(error.localizedDescription)")
         }
         
         #if canImport(FirebaseCrashlytics)
-        Crashlytics.crashlytics().record(error: error)
+        if isFirebaseConfigured {
+            Crashlytics.crashlytics().record(error: error)
+        }
         #endif
     }
     
     public func logEvent(_ name: String, params: [String: Any]? = nil) {
-        logger.info("Event: \(name, privacy: .public), Params: \(String(describing: params), privacy: .public)")
+        logger.info("Event: \(name), Params: \(String(describing: params))")
         
         #if canImport(FirebaseAnalytics)
-        Analytics.logEvent(name, parameters: params)
+        if isFirebaseConfigured {
+            Analytics.logEvent(name, parameters: params)
+        }
         #endif
     }
 }

@@ -29,7 +29,9 @@ struct TaxiMeterApp: App {
 
     init() {
         #if canImport(FirebaseCore)
-        FirebaseApp.configure()
+        if FirebaseApp.app() == nil && Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") != nil {
+            FirebaseApp.configure()
+        }
         #endif
         
         self.logger = AppLoggerImpl()

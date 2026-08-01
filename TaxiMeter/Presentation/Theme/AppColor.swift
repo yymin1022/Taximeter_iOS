@@ -44,6 +44,6 @@ public struct AppColor {
     public static let meterMint = Color(hex: 0x61D0BB)
     public static let meterRedDark = Color(hex: 0xDB7093)
     public static let meterRedLight = Color(hex: 0xD81B60)
-    public static let meterYellowDark = Color(hex: 0xFFFFED83)
+    public static let meterYellowDark = Color(hex: 0xFFED83)
     public static let meterYellowLight = Color(hex: 0xFBA02D)
 }

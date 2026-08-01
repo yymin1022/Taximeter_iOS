@@ -9,5 +9,7 @@ import Observation
 /// - Manages UI State for Main View
 @Observable
 public final class MainViewModel {
+    public var selectedTab: TabInfo = .home
+
     public init() {}
 }

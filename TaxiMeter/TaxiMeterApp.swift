@@ -2,14 +2,18 @@
 //  TaxiMeterApp.swift
 //  TaxiMeter
 //
-//  Created by 유용민 on 3/21/26.
-//
 
 import SwiftUI
 import SwiftData
 
+#if canImport(FirebaseCore)
+import FirebaseCore
+#endif
+
 @main
 struct TaxiMeterApp: App {
+    let logger: AppLogger
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -23,9 +27,19 @@ struct TaxiMeterApp: App {
         }
     }()
 
+    init() {
+        #if canImport(FirebaseCore)
+        FirebaseApp.configure()
+        #endif
+        
+        self.logger = AppLoggerImpl()
+        self.logger.log("TaxiMeter App initialized")
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .meterTheme()
         }
         .modelContainer(sharedModelContainer)
     }

@@ -14,8 +14,6 @@ public final class CostRepositoryImpl: CostRepository, @unchecked Sendable {
     private static let firestoreDocumentKeyInfo = "info"
     private static let firestoreDocumentKeyVersion = "version"
 
-    private static let costVersionFallback = "20001022"
-
     public init(
         database: TaxiMeterDatabase,
         firestoreDataSource: FirestoreDataSource,
@@ -26,11 +24,11 @@ public final class CostRepositoryImpl: CostRepository, @unchecked Sendable {
         self.preferenceDataSource = preferenceDataSource
     }
 
-    /// Get local cost version from Preference
+    /// Get local cost version from Preference (returns empty string if not set yet)
     public func getLocalVersion() -> String {
         return preferenceDataSource.getString(
             key: PreferenceDefs.prefKeyCostVersion,
-            defaultValue: Self.costVersionFallback
+            defaultValue: ""
         )
     }
 

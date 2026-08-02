@@ -10,6 +10,10 @@ import Foundation
 public struct CostInfoDTO: Decodable, Sendable {
     public let data: [CostInfoItem]?
 
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+
     public init(data: [CostInfoItem]? = nil) {
         self.data = data
     }
@@ -21,6 +25,11 @@ public struct CostInfoItem: Decodable, Sendable {
 
     // Cost Info Data
     public let data: CostInfoData?
+
+    enum CodingKeys: String, CodingKey {
+        case region = "city"
+        case data
+    }
 
     public init(region: String? = nil, data: CostInfoData? = nil) {
         self.region = region
@@ -45,6 +54,20 @@ public struct CostInfoData: Decodable, Sendable {
     public let nightStartHour2: Int?
     public let nightEndHour1: Int?
     public let nightEndHour2: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case costBase = "cost_base"
+        case distBase = "dist_base"
+        case costRunPer = "cost_run_per"
+        case costTimePer = "cost_time_per"
+        case extraRateCity = "perc_city"
+        case extraRateNight1 = "perc_night_1"
+        case extraRateNight2 = "perc_night_2"
+        case nightStartHour1 = "perc_night_start_1"
+        case nightStartHour2 = "perc_night_start_2"
+        case nightEndHour1 = "perc_night_end_1"
+        case nightEndHour2 = "perc_night_end_2"
+    }
 
     public init(
         costBase: Int? = 0,

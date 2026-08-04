@@ -83,7 +83,6 @@ public struct MainView: View {
                 .stroke(Color.primary.opacity(0.08), lineWidth: 1)
         )
         .padding(.horizontal, 28)
-        .padding(.bottom, 20)
     }
 }
 

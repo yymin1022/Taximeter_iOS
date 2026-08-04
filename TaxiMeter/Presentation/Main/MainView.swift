@@ -16,75 +16,127 @@ public struct MainView: View {
     public var body: some View {
         ZStack(alignment: .bottom) {
             // Persistent Subscreen Views Hierarchy (Preserves State across Tab Switches)
-            ZStack {
-                SettingView()
-                    .opacity(viewModel.selectedTab == .setting ? 1 : 0)
-                    .allowsHitTesting(viewModel.selectedTab == .setting)
-
-                HomeView()
-                    .opacity(viewModel.selectedTab == .home ? 1 : 0)
-                    .allowsHitTesting(viewModel.selectedTab == .home)
-
-                StoreView()
-                    .opacity(viewModel.selectedTab == .store ? 1 : 0)
-                    .allowsHitTesting(viewModel.selectedTab == .store)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            persistentTabContent
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             // Floating TabBar matching Screenshots 1:1 (Multi-platform SwiftUI Semantic Styling)
             floatingTabBar
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
     }
+    
+    @ViewBuilder
+    private var persistentTabContent: some View {
+        ZStack {
+            ForEach(TabInfo.allCases) { tab in
+                screen(for: tab)
+                    .opacity(viewModel.selectedTab == tab ? 1 : 0)
+                    .allowsHitTesting(viewModel.selectedTab == tab)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func screen(for tab: TabInfo) -> some View {
+        switch tab {
+        case .setting:
+            SettingView()
+        case .home:
+            HomeView()
+        case .store:
+            StoreView()
+        }
+    }
 
     // Floating TabBar matching Screenshots 1:1
     private var floatingTabBar: some View {
-        HStack(spacing: 4) {
-            ForEach(TabInfo.allCases) { tab in
-                let isSelected = viewModel.selectedTab == tab
+            HStack(spacing: TabBarMetrics.itemSpacing) {
+                ForEach(TabInfo.allCases) { tab in
+                    tabButton(for: tab)
+                }
+            }
+            .padding(.horizontal, TabBarMetrics.barHorizontalPadding)
+            .padding(.vertical, TabBarMetrics.barVerticalPadding)
+            .background(
+                Capsule()
+                    .fill(.ultraThinMaterial)
+                    .shadow(
+                        color: Color.black.opacity(TabBarMetrics.shadowOpacity),
+                        radius: TabBarMetrics.shadowRadius,
+                        x: 0,
+                        y: TabBarMetrics.shadowYOffset
+                    )
+            )
+            .overlay(
+                Capsule()
+                    .stroke(Color.primary.opacity(TabBarMetrics.strokeOpacity), lineWidth: TabBarMetrics.strokeWidth)
+            )
+            .padding(.horizontal, TabBarMetrics.outerHorizontalPadding)
+        }
 
-                Button {
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.72)) {
-                        viewModel.selectedTab = tab
-                    }
-                } label: {
-                    VStack(spacing: 3) {
-                        Image(systemName: tab.systemImageName)
-                            .font(.system(size: 22, weight: .medium))
-                            .symbolEffect(.bounce, value: isSelected)
+        @ViewBuilder
+        private func tabButton(for tab: TabInfo) -> some View {
+            let isSelected = viewModel.selectedTab == tab
 
-                        Text(tab.title)
-                            .font(.system(size: 11, weight: .medium))
-                    }
-                    .foregroundColor(isSelected ? .blue : .primary)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 16)
-                    .background {
-                        if isSelected {
-                            Capsule()
-                                .fill(Color.primary.opacity(0.12))
-                                .matchedGeometryEffect(id: "activeTabScreenshotPill", in: tabAnimation)
-                        }
+            Button {
+                withAnimation(.spring(response: TabBarMetrics.springResponse, dampingFraction: TabBarMetrics.springDamping)) {
+                    viewModel.selectedTab = tab
+                }
+            } label: {
+                VStack(spacing: TabBarMetrics.labelSpacing) {
+                    Image(systemName: tab.systemImageName)
+                        .font(.system(size: TabBarMetrics.iconSize, weight: .medium))
+                        .symbolEffect(.bounce, value: isSelected)
+
+                    Text(tab.title)
+                        .font(.system(size: TabBarMetrics.labelFontSize, weight: .medium))
+                }
+                .foregroundStyle(isSelected ? Color.accentColor : Color.primary)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, TabBarMetrics.itemVerticalPadding)
+                .padding(.horizontal, TabBarMetrics.itemHorizontalPadding)
+                .background {
+                    if isSelected {
+                        Capsule()
+                            .fill(Color.primary.opacity(TabBarMetrics.selectedFillOpacity))
+                            .matchedGeometryEffect(id: TabBarMetrics.selectionPillID, in: tabAnimation)
                     }
                 }
-                .buttonStyle(.plain)
             }
+            .buttonStyle(.plain)
+            .accessibilityLabel(tab.title)
+            .accessibilityAddTraits(isSelected ? [.isSelected] : [])
         }
-        .padding(.horizontal, 10)
-        .padding(.vertical, 6)
-        .background(
-            Capsule()
-                .fill(.ultraThinMaterial)
-                .shadow(color: Color.black.opacity(0.12), radius: 16, x: 0, y: 8)
-        )
-        .overlay(
-            Capsule()
-                .stroke(Color.primary.opacity(0.08), lineWidth: 1)
-        )
-        .padding(.horizontal, 28)
-        .padding(.bottom, 20)
-    }
+
+        // MARK: - Metrics
+
+        private enum TabBarMetrics {
+            static let iconSize: CGFloat = 22
+            static let labelFontSize: CGFloat = 11
+            static let labelSpacing: CGFloat = 3
+
+            static let itemSpacing: CGFloat = 4
+            static let itemVerticalPadding: CGFloat = 10
+            static let itemHorizontalPadding: CGFloat = 16
+
+            static let barHorizontalPadding: CGFloat = 10
+            static let barVerticalPadding: CGFloat = 6
+            static let outerHorizontalPadding: CGFloat = 28
+
+            static let shadowOpacity: Double = 0.12
+            static let shadowRadius: CGFloat = 16
+            static let shadowYOffset: CGFloat = 8
+
+            static let strokeOpacity: Double = 0.08
+            static let strokeWidth: CGFloat = 1
+
+            static let selectedFillOpacity: Double = 0.12
+
+            static let springResponse: Double = 0.35
+            static let springDamping: Double = 0.72
+
+            static let selectionPillID = "selectedTabPill"
+        }
 }
 
 #Preview("Light Mode") {

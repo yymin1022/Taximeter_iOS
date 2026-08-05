@@ -8,6 +8,7 @@ import Foundation
 /// Cost Info Mapper
 /// - DTO -> Entity
 /// - Entity -> Domain Model
+/// - Domain Model -> Entity (Custom Cost)
 public enum CostInfoMapper {
     /// Map DTO -> Entity
     public static func toEntity(_ item: CostInfoItem) -> CostInfoEntity {
@@ -25,6 +26,25 @@ public enum CostInfoMapper {
             nightStartHour2: data?.nightStartHour2 ?? 0,
             nightEndHour1: data?.nightEndHour1 ?? 0,
             nightEndHour2: data?.nightEndHour2 ?? 0
+        )
+    }
+
+    /// Map Domain Model -> Entity
+    public static func toEntity(_ costInfo: CostInfo) -> CostInfoEntity {
+        return CostInfoEntity(
+            region: costInfo.region,
+            costBase: costInfo.costBase,
+            distBase: costInfo.distBase,
+            costRunPer: costInfo.costRunPer,
+            costTimePer: costInfo.costTimePer,
+            extraRateCity: costInfo.extraRateCity,
+            extraRateNight1: costInfo.extraRateNight1,
+            extraRateNight2: costInfo.extraRateNight2,
+            nightStartHour1: costInfo.nightStartHour1,
+            nightStartHour2: costInfo.nightStartHour2,
+            nightEndHour1: costInfo.nightEndHour1,
+            nightEndHour2: costInfo.nightEndHour2,
+            isCustom: true
         )
     }
 

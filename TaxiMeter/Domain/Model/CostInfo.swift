@@ -27,6 +27,10 @@ public struct CostInfo: Equatable, Sendable {
     public var nightEndHour1: Int
     public var nightEndHour2: Int
 
+    public var isNightExtra2step: Bool {
+        (nightStartHour1 != nightStartHour2) || (nightEndHour1 != nightEndHour2)
+    }
+
     public init(
         region: String = "",
         costBase: Int = 0,

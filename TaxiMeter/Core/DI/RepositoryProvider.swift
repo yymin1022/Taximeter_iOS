@@ -10,12 +10,21 @@ public final class RepositoryProvider {
     public static let shared = RepositoryProvider()
 
     public let costRepository: CostRepository
+    public let settingRepository: SettingRepository
 
     private init() {
+        let database = DatabaseProvider.shared.taxiMeterDatabase
+        let firestoreDataSource = DataSourceProvider.shared.firestoreDataSource
+        let preferenceDataSource = DataSourceProvider.shared.preferenceDataSource
+
         self.costRepository = CostRepositoryImpl(
-            database: DatabaseProvider.shared.taxiMeterDatabase,
-            firestoreDataSource: DataSourceProvider.shared.firestoreDataSource,
-            preferenceDataSource: DataSourceProvider.shared.preferenceDataSource
+            database: database,
+            firestoreDataSource: firestoreDataSource,
+            preferenceDataSource: preferenceDataSource
+        )
+        self.settingRepository = SettingRepositoryImpl(
+            database: database,
+            preferenceDataSource: preferenceDataSource
         )
     }
 }

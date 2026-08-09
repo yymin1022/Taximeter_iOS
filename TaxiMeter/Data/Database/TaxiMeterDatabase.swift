@@ -23,6 +23,19 @@ public final class TaxiMeterDatabase: @unchecked Sendable {
         }
     }
 
+    /// Insert custom cost entity (isCustom = true)
+    public func insertCustomCost(_ cost: CostInfoEntity) {
+        queue.sync(flags: .barrier) {
+            var entities = self.loadEntities()
+            if let index = entities.firstIndex(where: { $0.region == cost.region }) {
+                entities[index] = cost
+            } else {
+                entities.append(cost)
+            }
+            self.saveEntities(entities)
+        }
+    }
+
     /// Insert or update list of cost entities (synchronous barrier write)
     public func insertAll(_ costs: [CostInfoEntity]) {
         queue.sync(flags: .barrier) {

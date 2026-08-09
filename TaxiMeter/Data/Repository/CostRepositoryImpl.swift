@@ -74,9 +74,30 @@ public final class CostRepositoryImpl: CostRepository, @unchecked Sendable {
         return true
     }
 
-    /// Get cost info for specific region
+    /// Get cost info for specific region (returns default fallback for custom if not saved yet)
     public func getCostInfo(regionKey: String) -> CostInfo? {
-        guard let entity = database.getByRegion(regionKey) else { return nil }
-        return CostInfoMapper.toDomain(entity)
+        if let entity = database.getByRegion(regionKey) {
+            return CostInfoMapper.toDomain(entity)
+        }
+
+        // Default fallback for custom region when no custom cost has been saved yet
+        if regionKey == RegionSetting.custom.rawValue {
+            return CostInfo(
+                region: RegionSetting.custom.rawValue,
+                costBase: 4800,
+                distBase: 1600,
+                costRunPer: 131,
+                costTimePer: 30,
+                extraRateCity: 20,
+                extraRateNight1: 20,
+                extraRateNight2: 40,
+                nightStartHour1: 22,
+                nightStartHour2: 23,
+                nightEndHour1: 4,
+                nightEndHour2: 2
+            )
+        }
+
+        return nil
     }
 }

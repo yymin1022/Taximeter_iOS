@@ -6,11 +6,12 @@
 import Foundation
 
 /// Provider for Repositories
-public final class RepositoryProvider {
+public final class RepositoryProvider: @unchecked Sendable {
     public static let shared = RepositoryProvider()
 
     public let costRepository: CostRepository
     public let settingRepository: SettingRepository
+    public let billingRepository: BillingRepository
 
     private init() {
         let database = DatabaseProvider.shared.taxiMeterDatabase
@@ -24,6 +25,9 @@ public final class RepositoryProvider {
         )
         self.settingRepository = SettingRepositoryImpl(
             database: database,
+            preferenceDataSource: preferenceDataSource
+        )
+        self.billingRepository = BillingRepositoryImpl(
             preferenceDataSource: preferenceDataSource
         )
     }

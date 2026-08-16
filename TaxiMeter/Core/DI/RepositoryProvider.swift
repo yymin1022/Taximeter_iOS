@@ -12,6 +12,7 @@ public final class RepositoryProvider: @unchecked Sendable {
     public let costRepository: CostRepository
     public let settingRepository: SettingRepository
     public let billingRepository: BillingRepository
+    public let locationRepository: LocationRepository
 
     private init() {
         let database = DatabaseProvider.shared.taxiMeterDatabase
@@ -30,5 +31,6 @@ public final class RepositoryProvider: @unchecked Sendable {
         self.billingRepository = BillingRepositoryImpl(
             preferenceDataSource: preferenceDataSource
         )
+        self.locationRepository = LocationRepositoryImpl()
     }
 }

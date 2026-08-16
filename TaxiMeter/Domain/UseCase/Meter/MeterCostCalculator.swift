@@ -70,6 +70,7 @@ public struct MeterCostCalculator: Equatable, Sendable {
     public func toMeterState() -> MeterState {
         return MeterState(
             currentCost: cost,
+            costCounter: costCounter,
             totalDistanceMeters: totalDistanceMeters,
             totalElapsedSeconds: totalElapsedSeconds,
             currentSpeedKph: currentSpeedKph,

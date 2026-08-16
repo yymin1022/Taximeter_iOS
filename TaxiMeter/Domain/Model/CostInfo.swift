@@ -33,17 +33,17 @@ public struct CostInfo: Equatable, Sendable {
 
     public init(
         region: String = "",
-        costBase: Int = 0,
-        distBase: Int = 0,
-        costRunPer: Int = 0,
-        costTimePer: Int = 0,
-        extraRateCity: Int = 0,
-        extraRateNight1: Int = 0,
-        extraRateNight2: Int = 0,
-        nightStartHour1: Int = 0,
-        nightStartHour2: Int = 0,
-        nightEndHour1: Int = 0,
-        nightEndHour2: Int = 0
+        costBase: Int = 4800,
+        distBase: Int = 1600,
+        costRunPer: Int = 131,
+        costTimePer: Int = 30,
+        extraRateCity: Int = 20,
+        extraRateNight1: Int = 20,
+        extraRateNight2: Int = 40,
+        nightStartHour1: Int = 22,
+        nightStartHour2: Int = 23,
+        nightEndHour1: Int = 4,
+        nightEndHour2: Int = 2
     ) {
         self.region = region
         self.costBase = costBase

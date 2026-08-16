@@ -57,11 +57,3 @@ public final class SettingRepositoryImpl: SettingRepository, @unchecked Sendable
         preferenceDataSource.setString(key: Self.prefKeySettingTheme, value: value.key)
     }
 }
-
-private extension RegionSetting {
-    var key: String { rawValue }
-}
-
-private extension ThemeSetting {
-    var key: String { rawValue }
-}

@@ -27,6 +27,7 @@ public enum RegionSetting: String, CaseIterable, Identifiable, Codable, Sendable
     case custom = "custom"
 
     public var id: String { rawValue }
+    public var key: String { rawValue }
 
     public var displayName: String {
         switch self {

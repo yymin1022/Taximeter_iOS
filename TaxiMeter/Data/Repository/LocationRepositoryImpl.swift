@@ -36,8 +36,12 @@ public final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocat
 
             if shouldStart {
                 DispatchQueue.main.async {
-                    self.locationManager.requestWhenInUseAuthorization()
-                    self.locationManager.startUpdatingLocation()
+                    let status = self.locationManager.authorizationStatus
+                    if status == .notDetermined {
+                        self.locationManager.requestWhenInUseAuthorization()
+                    } else if status == .authorizedWhenInUse || status == .authorizedAlways {
+                        self.locationManager.startUpdatingLocation()
+                    }
                 }
             }
 
@@ -54,6 +58,19 @@ public final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocat
                     }
                 }
             }
+        }
+    }
+
+    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            manager.startUpdatingLocation()
+        case .denied, .restricted:
+            break
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
+        @unknown default:
+            break
         }
     }
 

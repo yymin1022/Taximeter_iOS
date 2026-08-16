@@ -9,6 +9,8 @@ import Foundation
 public struct MeterState: Equatable, Sendable {
     /// Current cost (KRW)
     public let currentCost: Int
+    /// Cost counter remaining (m)
+    public let costCounter: Int
     /// Drove distance (m)
     public let totalDistanceMeters: Double
     /// Drove time (s)
@@ -24,6 +26,7 @@ public struct MeterState: Equatable, Sendable {
 
     public init(
         currentCost: Int = 0,
+        costCounter: Int = 0,
         totalDistanceMeters: Double = 0.0,
         totalElapsedSeconds: Double = 0.0,
         currentSpeedKph: Double = 0.0,
@@ -32,6 +35,7 @@ public struct MeterState: Equatable, Sendable {
         isCityRate: Bool = false
     ) {
         self.currentCost = currentCost
+        self.costCounter = costCounter
         self.totalDistanceMeters = totalDistanceMeters
         self.totalElapsedSeconds = totalElapsedSeconds
         self.currentSpeedKph = currentSpeedKph

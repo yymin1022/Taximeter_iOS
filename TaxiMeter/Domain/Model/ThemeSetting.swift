@@ -12,6 +12,7 @@ public enum ThemeSetting: String, CaseIterable, Identifiable, Codable, Sendable 
     case horse = "horse"
 
     public var id: String { rawValue }
+    public var key: String { rawValue }
 
     public var displayName: String {
         switch self {

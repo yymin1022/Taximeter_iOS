@@ -104,6 +104,7 @@ public struct MeterView: View {
                     .foregroundColor(meterColors.onBackground)
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
+                    .glassEffect()
             }
 
             Spacer()

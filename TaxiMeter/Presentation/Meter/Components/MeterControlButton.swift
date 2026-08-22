@@ -33,6 +33,7 @@ public struct MeterControlButton: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
                 .background(color, in: Capsule())
+                .glassEffect()
         }
     }
 }

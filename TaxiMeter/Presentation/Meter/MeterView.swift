@@ -16,60 +16,42 @@ public struct MeterView: View {
     }
 
     public var body: some View {
-        ZStack {
-            meterColors.background
-                .ignoresSafeArea()
+        GeometryReader { geometry in
+            let isLandscape = geometry.size.width > geometry.size.height
 
-            VStack(spacing: 0) {
-                // Top Navigation Bar
-                topBar
+            ZStack {
+                meterColors.background
+                    .ignoresSafeArea()
 
-                // Push all meter content to the bottom (Arrangement.Bottom)
-                Spacer()
+                VStack(spacing: 0) {
+                    // Top Navigation Bar
+                    topBar
 
-                // Animation Frame (Right-aligned above cost view)
-                HStack {
-                    Spacer()
-                    MeterAnimationView(
-                        animationFrames: viewModel.uiState.animationFrames,
-                        speedKph: viewModel.uiState.meterStatus == .running ? viewModel.uiState.currentSpeedKph : 0.0
-                    )
-                    .frame(width: 90, height: 90)
+                    if isLandscape {
+                        landscapeContent
+                    } else {
+                        portraitContent
+                    }
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 8)
 
-                // Cost Display
-                costView
-                    .padding(.horizontal, 20)
-
-                // Meter Info (Speed, Status, Distance)
-                meterInfoView
-                    .padding(.vertical, 24)
-
-                // Control Buttons
-                controlView
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 24)
-            }
-
-            // Toast / SnackBar Overlay
-            if let snackMessage = viewModel.uiState.snackBarMessage {
-                VStack {
-                    Spacer()
-                    Text(snackMessage)
-                        .font(.subheadline)
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
-                        .background(Capsule().fill(Color.black.opacity(0.8)))
-                        .padding(.bottom, 32)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-                .animation(.easeInOut, value: viewModel.uiState.snackBarMessage)
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                        viewModel.clearSnackBar()
+                // Toast / SnackBar Overlay
+                if let snackMessage = viewModel.uiState.snackBarMessage {
+                    VStack {
+                        Spacer()
+                        Text(snackMessage)
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .background(Capsule().fill(Color.black.opacity(0.8)))
+                            .padding(.bottom, 32)
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
+                    .animation(.easeInOut, value: viewModel.uiState.snackBarMessage)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                            viewModel.clearSnackBar()
+                        }
                     }
                 }
             }
@@ -86,6 +68,75 @@ public struct MeterView: View {
         }
         .meterTheme()
         .navigationBarBackButtonHidden(true)
+    }
+
+    // MARK: - Portrait & Landscape Contents
+
+    private var portraitContent: some View {
+        VStack(spacing: 0) {
+            // Push all meter content to the bottom (Arrangement.Bottom)
+            Spacer()
+
+            // Animation Frame (Right-aligned above cost view)
+            HStack {
+                Spacer()
+                MeterAnimationView(
+                    animationFrames: viewModel.uiState.animationFrames,
+                    speedKph: viewModel.uiState.meterStatus == .running ? viewModel.uiState.currentSpeedKph : 0.0
+                )
+                .frame(width: 90, height: 90)
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 8)
+
+            // Cost Display
+            costView
+                .padding(.horizontal, 20)
+
+            // Meter Info (Speed, Status, Distance)
+            meterInfoView
+                .padding(.vertical, 24)
+
+            // Control Buttons
+            controlView
+                .padding(.horizontal, 16)
+                .padding(.bottom, 24)
+        }
+    }
+
+    private var landscapeContent: some View {
+        HStack(spacing: 0) {
+            // Left Column: Animation & Cost (Aligned to bottom-end matching Android)
+            VStack(alignment: .trailing, spacing: 0) {
+                Spacer()
+
+                MeterAnimationView(
+                    animationFrames: viewModel.uiState.animationFrames,
+                    speedKph: viewModel.uiState.meterStatus == .running ? viewModel.uiState.currentSpeedKph : 0.0
+                )
+                .frame(width: 90, height: 90)
+                .padding(.trailing, 20)
+                .padding(.bottom, 8)
+
+                costView
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 48)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+
+            // Right Column: Info & Control Buttons
+            VStack(spacing: 0) {
+                Spacer()
+
+                meterInfoView
+                    .padding(.vertical, 12)
+
+                controlView
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+        }
     }
 
     // MARK: - Subviews

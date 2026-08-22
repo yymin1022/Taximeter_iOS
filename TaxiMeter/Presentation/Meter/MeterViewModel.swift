@@ -6,6 +6,7 @@
 import Foundation
 import Observation
 import CoreLocation
+import UIKit
 
 @Observable
 public final class MeterViewModel {
@@ -83,6 +84,9 @@ public final class MeterViewModel {
 
         uiState.meterStatus = .running
 
+        // Keep screen on during driving
+        UIApplication.shared.isIdleTimerDisabled = true
+
         meterCalculationTask = Task { @MainActor in
             for await meterState in calculateMeterCostUseCase.execute(costInfo: costInfo, isCityRateStream: isCityRateStream) {
                 guard !Task.isCancelled else { break }
@@ -140,6 +144,9 @@ public final class MeterViewModel {
         meterCalculationTask = nil
         cityRateContinuation?.finish()
         cityRateContinuation = nil
+
+        // Restore normal screen sleep timer
+        UIApplication.shared.isIdleTimerDisabled = false
 
         let frames = uiState.animationFrames
         uiState = MeterUiState(animationFrames: frames)

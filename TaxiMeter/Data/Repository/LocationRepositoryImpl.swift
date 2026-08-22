@@ -17,13 +17,8 @@ public final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocat
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.distanceFilter = kCLDistanceFilterNone
+        self.locationManager.activityType = .automotiveNavigation
         self.locationManager.pausesLocationUpdatesAutomatically = false
-
-        // Only enable background location updates if UIBackgroundModes contains "location" to prevent NSInternalInconsistencyException crash
-        if let backgroundModes = Bundle.main.object(forInfoDictionaryKey: "UIBackgroundModes") as? [String],
-           backgroundModes.contains("location") {
-            self.locationManager.allowsBackgroundLocationUpdates = true
-        }
     }
 
     public func observeUpdate() -> AsyncStream<LocationData> {
@@ -37,10 +32,8 @@ public final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocat
             if shouldStart {
                 DispatchQueue.main.async {
                     let status = self.locationManager.authorizationStatus
-                    if status == .notDetermined {
-                        self.locationManager.requestWhenInUseAuthorization()
-                    } else if status == .authorizedWhenInUse || status == .authorizedAlways {
-                        self.locationManager.startUpdatingLocation()
+                    if status == .authorizedWhenInUse || status == .authorizedAlways {
+                        self.startLocationUpdates()
                     }
                 }
             }
@@ -54,7 +47,7 @@ public final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocat
 
                 if shouldStop {
                     DispatchQueue.main.async {
-                        self.locationManager.stopUpdatingLocation()
+                        self.stopLocationUpdates()
                     }
                 }
             }
@@ -64,14 +57,49 @@ public final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocat
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
-            manager.startUpdatingLocation()
-        case .denied, .restricted:
+            lock.lock()
+            let hasListeners = !continuations.isEmpty
+            lock.unlock()
+            if hasListeners {
+                startLocationUpdates()
+            }
+        case .denied, .restricted, .notDetermined:
             break
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
         @unknown default:
             break
         }
+    }
+
+    private func startLocationUpdates() {
+        enableBackgroundLocationUpdatesIfSupported()
+        self.locationManager.startUpdatingLocation()
+    }
+
+    private func stopLocationUpdates() {
+        #if os(iOS)
+        self.locationManager.allowsBackgroundLocationUpdates = false
+        self.locationManager.showsBackgroundLocationIndicator = false
+        #endif
+        self.locationManager.stopUpdatingLocation()
+    }
+
+    private func enableBackgroundLocationUpdatesIfSupported() {
+        #if os(iOS)
+        let rawModes = Bundle.main.object(forInfoDictionaryKey: "UIBackgroundModes")
+        let hasLocationMode: Bool
+        if let arrayModes = rawModes as? [String] {
+            hasLocationMode = arrayModes.contains("location")
+        } else if let stringMode = rawModes as? String {
+            hasLocationMode = stringMode.contains("location")
+        } else {
+            hasLocationMode = false
+        }
+
+        if hasLocationMode {
+            self.locationManager.allowsBackgroundLocationUpdates = true
+            self.locationManager.showsBackgroundLocationIndicator = true
+        }
+        #endif
     }
 
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

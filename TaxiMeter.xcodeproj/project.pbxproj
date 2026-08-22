@@ -302,8 +302,9 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "백그라운드에서도 택시 요금 및 주행 거리를 지속적으로 계산하기 위해 위치 정보가 필요합니다.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "택시 요금 및 주행 거리를 계산하기 위해 위치 정보가 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location permission is required to continuously calculate taxi cost and driving distance in the background.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location permission is required to continuously calculate taxi cost and driving distance in the background.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location permission is required to calculate taxi cost and driving distance.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -349,8 +350,9 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "백그라운드에서도 택시 요금 및 주행 거리를 지속적으로 계산하기 위해 위치 정보가 필요합니다.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "택시 요금 및 주행 거리를 계산하기 위해 위치 정보가 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location permission is required to continuously calculate taxi cost and driving distance in the background.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location permission is required to continuously calculate taxi cost and driving distance in the background.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location permission is required to calculate taxi cost and driving distance.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

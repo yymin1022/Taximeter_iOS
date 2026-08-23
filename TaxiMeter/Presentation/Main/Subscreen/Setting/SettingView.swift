@@ -15,7 +15,7 @@ public struct SettingView: View {
 
     public var body: some View {
         List {
-            ForEach(viewModel.uiState.settingGroups) { group in
+            ForEach(Array(viewModel.uiState.settingGroups.enumerated()), id: \.element.id) { idx, group in
                 Section(header: Text(group.title)) {
                     ForEach(group.items) { item in
                         Button {
@@ -38,6 +38,14 @@ public struct SettingView: View {
                             .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
+                    }
+                }
+
+                if idx == 1 && !viewModel.uiState.isAdRemoved {
+                    Section {
+                        NativeAdView()
+                            .listRowInsets(EdgeInsets())
+                            .listRowBackground(Color.clear)
                     }
                 }
             }

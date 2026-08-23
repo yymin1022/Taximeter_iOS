@@ -13,6 +13,7 @@
 		95E042C2DEE5FF3586C1472D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 685410F4C3659723F8BD9547 /* FirebaseCrashlytics */; };
 		B93FC91E6BFE5D02ED77DECD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB2495B95F583A6802C6101D /* FirebaseAnalytics */; };
 		BF573FB5A3DC255629C88103 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4F2DA2568501EA8EB6D16EE4 /* FirebaseAuth */; };
+		E3B428FFB4C8FDD039814983 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0C4BB8BB5D8EA4556F256167 /* GoogleMobileAds */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 				B93FC91E6BFE5D02ED77DECD /* FirebaseAnalytics in Frameworks */,
 				95E042C2DEE5FF3586C1472D /* FirebaseCrashlytics in Frameworks */,
 				27731C7305C499F71036ED05 /* FirebaseFirestore in Frameworks */,
+				E3B428FFB4C8FDD039814983 /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +89,7 @@
 				DB2495B95F583A6802C6101D /* FirebaseAnalytics */,
 				685410F4C3659723F8BD9547 /* FirebaseCrashlytics */,
 				30C6C12243DF94796DA58E72 /* FirebaseFirestore */,
+				0C4BB8BB5D8EA4556F256167 /* GoogleMobileAds */,
 			);
 			productName = TaxiMeter;
 			productReference = EE3157C12F6EC919005F8695 /* TaxiMeter.app */;
@@ -118,6 +121,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				B3E0651BAD9D342FE32C28BA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9197A7473400CC7EF6A0CF94 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EE3157C22F6EC919005F8695 /* Products */;
@@ -302,6 +306,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location permission is required to continuously calculate taxi cost and driving distance in the background.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location permission is required to continuously calculate taxi cost and driving distance in the background.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location permission is required to calculate taxi cost and driving distance.";
@@ -309,7 +314,6 @@
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_FILE = Info.plist;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
@@ -351,6 +355,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location permission is required to continuously calculate taxi cost and driving distance in the background.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location permission is required to continuously calculate taxi cost and driving distance in the background.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location permission is required to calculate taxi cost and driving distance.";
@@ -358,7 +363,6 @@
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-				INFOPLIST_FILE = Info.plist;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
@@ -411,6 +415,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9197A7473400CC7EF6A0CF94 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.13.0;
+			};
+		};
 		B3E0651BAD9D342FE32C28BA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -422,6 +434,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0C4BB8BB5D8EA4556F256167 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9197A7473400CC7EF6A0CF94 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
 		30C6C12243DF94796DA58E72 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B3E0651BAD9D342FE32C28BA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -3,14 +3,14 @@
 //  TaxiMeter
 //
 
+import Combine
 import Foundation
-import Observation
 import CoreLocation
+import SwiftUI
 import UIKit
 
-@Observable
-public final class MeterViewModel {
-    public var uiState: MeterUiState = MeterUiState()
+public final class MeterViewModel: ObservableObject {
+    @Published public var uiState: MeterUiState = MeterUiState()
 
     private let settingRepository: SettingRepository
     private let costRepository: CostRepository
@@ -107,6 +107,40 @@ public final class MeterViewModel {
         }
     }
 
+    /// Check first launch notice dialog
+    public func checkFirstLaunch() {
+        if settingRepository.isFirstLaunch() {
+            uiState.showFirstLaunchDialog = true
+        }
+    }
+
+    /// On confirm first launch notice dialog
+    public func onConfirmFirstLaunch() {
+        uiState.showFirstLaunchDialog = false
+        settingRepository.setFirstLaunch(false)
+    }
+
+    /// On click back button
+    public func onClickBack(onDismiss: () -> Void) {
+        if uiState.meterStatus != .notRunning {
+            uiState.showBackDialog = true
+        } else {
+            onDismiss()
+        }
+    }
+
+    /// On cancel back dialog
+    public func onCancelBack() {
+        uiState.showBackDialog = false
+    }
+
+    /// On confirm back dialog
+    public func onConfirmBack(onDismiss: () -> Void) {
+        uiState.showBackDialog = false
+        stopMeterInternal()
+        onDismiss()
+    }
+
     /// On click stop meter button
     public func onClickStop() {
         guard uiState.meterStatus != .notRunning else { return }
@@ -155,6 +189,10 @@ public final class MeterViewModel {
         UIApplication.shared.isIdleTimerDisabled = false
 
         let frames = uiState.animationFrames
-        uiState = MeterUiState(animationFrames: frames)
+        let isAdRemoved = settingRepository.isAdRemoved()
+        uiState = MeterUiState(
+            animationFrames: frames,
+            isAdRemoved: isAdRemoved
+        )
     }
 }

@@ -9,10 +9,10 @@ import SwiftUI
 public struct MeterView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.meterColors) private var meterColors
-    @State private var viewModel: MeterViewModel
+    @StateObject private var viewModel: MeterViewModel
 
     public init(viewModel: MeterViewModel = MeterViewModel()) {
-        _viewModel = State(initialValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     public var body: some View {
@@ -38,7 +38,7 @@ public struct MeterView: View {
                 if let snackMessage = viewModel.uiState.snackBarMessage {
                     VStack {
                         Spacer()
-                        Text(snackMessage)
+                        Text(LocalizedStringKey(snackMessage))
                             .font(.subheadline)
                             .foregroundColor(.white)
                             .padding(.horizontal, 20)
@@ -56,6 +56,10 @@ public struct MeterView: View {
                 }
             }
         }
+        .onAppear {
+            viewModel.checkFirstLaunch()
+            viewModel.loadAdRemovalStatus()
+        }
         .alert("Stop driving", isPresented: $viewModel.uiState.showStopDialog) {
             Button("Cancel", role: .cancel) {
                 viewModel.onCancelStop()
@@ -64,10 +68,28 @@ public struct MeterView: View {
                 viewModel.onConfirmStop()
             }
         } message: {
-            Text("Cost: ₩\(formattedCost(viewModel.uiState.currentCost))\nDistance: \(String(format: "%.1f", viewModel.uiState.totalDistanceMeters / 1000.0)) km\nStop driving?")
+            Text(stopDialogMessage)
+        }
+        .alert("Stop driving", isPresented: $viewModel.uiState.showBackDialog) {
+            Button("Cancel", role: .cancel) {
+                viewModel.onCancelBack()
+            }
+            Button("OK") {
+                viewModel.onConfirmBack(onDismiss: { dismiss() })
+            }
+        } message: {
+            Text("The meter is currently running. Do you want to stop driving and go back?")
+        }
+        .alert("Notice", isPresented: $viewModel.uiState.showFirstLaunchDialog) {
+            Button("OK") {
+                viewModel.onConfirmFirstLaunch()
+            }
+        } message: {
+            Text("Measurement errors may occur depending on GPS status.\nPlease use this app for reference only as differences from actual taxi meters may occur.")
         }
         .meterTheme()
         .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 
     // MARK: - Portrait & Landscape Contents
@@ -156,18 +178,13 @@ public struct MeterView: View {
     private var topBar: some View {
         HStack {
             Button(action: {
-                if viewModel.uiState.meterStatus != .notRunning {
-                    viewModel.onClickStop()
-                } else {
-                    dismiss()
-                }
+                viewModel.onClickBack(onDismiss: { dismiss() })
             }) {
                 Image(systemName: "chevron.left")
                     .font(.body.weight(.semibold))
                     .foregroundColor(meterColors.onBackground)
                     .frame(width: 40, height: 40)
-                    .clipShape(Circle())
-                    .glassEffect()
+                    .applyGlassEffect(in: Circle())
             }
 
             Spacer()
@@ -212,7 +229,7 @@ public struct MeterView: View {
                 Text("Status")
                     .font(.subheadline)
                     .foregroundColor(meterColors.onBackground)
-                Text(statusText(viewModel.uiState.meterStatus))
+                Text(LocalizedStringKey(statusText(viewModel.uiState.meterStatus)))
                     .font(.headline.weight(.semibold))
                     .foregroundColor(meterColors.onBackground)
 
@@ -228,6 +245,17 @@ public struct MeterView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(.horizontal, 24)
+    }
+
+    private var stopDialogMessage: String {
+        let cost = formattedCost(viewModel.uiState.currentCost)
+        let dist = String(format: "%.1f", viewModel.uiState.totalDistanceMeters / 1000.0)
+        let format = NSLocalizedString("meter_dialog_stop_content", comment: "")
+        if format != "meter_dialog_stop_content" {
+            return String(format: format, cost, dist)
+        }
+        let fallbackFormat = NSLocalizedString("Cost: ₩%@\nDistance: %@ km\nStop driving?", comment: "")
+        return String(format: fallbackFormat, cost, dist)
     }
 
     private var controlView: some View {
@@ -307,7 +335,7 @@ private struct MeterAnimationView: View {
                     .foregroundColor(.secondary)
             }
         }
-        .onChange(of: speedKph) { _, newSpeed in
+        .onChange(of: speedKph) { newSpeed in
             restartTimer(speed: newSpeed)
         }
         .onAppear {

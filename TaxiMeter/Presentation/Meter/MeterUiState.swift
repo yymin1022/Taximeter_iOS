@@ -28,6 +28,12 @@ public struct MeterUiState: Equatable, Sendable {
     /// Show stop confirmation dialog
     public var showStopDialog: Bool
 
+    /// Show first launch notice dialog
+    public var showFirstLaunchDialog: Bool
+
+    /// Show back confirmation dialog
+    public var showBackDialog: Bool
+
     /// SnackBar / Toast message
     public var snackBarMessage: String?
 
@@ -44,6 +50,8 @@ public struct MeterUiState: Equatable, Sendable {
         isNightRate: Bool = false,
         animationFrames: [String] = [],
         showStopDialog: Bool = false,
+        showFirstLaunchDialog: Bool = false,
+        showBackDialog: Bool = false,
         snackBarMessage: String? = nil,
         isAdRemoved: Bool = false
     ) {
@@ -56,6 +64,8 @@ public struct MeterUiState: Equatable, Sendable {
         self.isNightRate = isNightRate
         self.animationFrames = animationFrames
         self.showStopDialog = showStopDialog
+        self.showFirstLaunchDialog = showFirstLaunchDialog
+        self.showBackDialog = showBackDialog
         self.snackBarMessage = snackBarMessage
         self.isAdRemoved = isAdRemoved
     }

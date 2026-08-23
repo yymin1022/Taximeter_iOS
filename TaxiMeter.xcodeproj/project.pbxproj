@@ -11,6 +11,8 @@
 		1175F5C8F9864CA6D83D812A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = D6DE448D538E5E105B0F2021 /* FirebaseCore */; };
 		27731C7305C499F71036ED05 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 30C6C12243DF94796DA58E72 /* FirebaseFirestore */; };
 		95E042C2DEE5FF3586C1472D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 685410F4C3659723F8BD9547 /* FirebaseCrashlytics */; };
+		A10000000000000000000013 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000010 /* InfoPlist.strings */; };
+		A10000000000000000000023 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000020 /* Localizable.strings */; };
 		B93FC91E6BFE5D02ED77DECD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB2495B95F583A6802C6101D /* FirebaseAnalytics */; };
 		BF573FB5A3DC255629C88103 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4F2DA2568501EA8EB6D16EE4 /* FirebaseAuth */; };
 		E3B428FFB4C8FDD039814983 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0C4BB8BB5D8EA4556F256167 /* GoogleMobileAds */; };
@@ -18,6 +20,10 @@
 
 /* Begin PBXFileReference section */
 		627F94E3829C4B5971542897 /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; name = "GoogleService-Info.plist"; path = "TaxiMeter/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A10000000000000000000011 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = TaxiMeter/Resources/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A10000000000000000000012 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = TaxiMeter/Resources/ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A10000000000000000000021 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = TaxiMeter/Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A10000000000000000000022 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = TaxiMeter/Resources/ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE3157C12F6EC919005F8695 /* TaxiMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxiMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -52,6 +58,8 @@
 				EE3157C32F6EC919005F8695 /* TaxiMeter */,
 				EE3157C22F6EC919005F8695 /* Products */,
 				627F94E3829C4B5971542897 /* GoogleService-Info.plist */,
+				A10000000000000000000010 /* InfoPlist.strings */,
+				A10000000000000000000020 /* Localizable.strings */,
 			);
 			sourceTree = "<group>";
 		};
@@ -116,6 +124,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = EE3157B82F6EC919005F8695;
 			minimizedProjectReferenceProxies = 1;
@@ -139,6 +148,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				067CF05EFF076350C51FF010 /* GoogleService-Info.plist in Resources */,
+				A10000000000000000000013 /* InfoPlist.strings in Resources */,
+				A10000000000000000000023 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +186,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A10000000000000000000010 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A10000000000000000000011 /* en */,
+				A10000000000000000000012 /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000020 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A10000000000000000000021 /* en */,
+				A10000000000000000000022 /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		EE3157CC2F6EC91B005F8695 /* Debug */ = {
@@ -320,7 +352,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.2;
@@ -369,7 +401,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.2;

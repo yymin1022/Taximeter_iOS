@@ -1,0 +1,9 @@
+/* Bundle Name / Display Name */
+"CFBundleDisplayName" = "TaxiMeter";
+"CFBundleName" = "TaxiMeter";
+
+/* Privacy Descriptions */
+"NSUserTrackingUsageDescription" = "This identifier will be used to deliver personalized ads to you.";
+"NSLocationWhenInUseUsageDescription" = "Location permission is used to calculate real-time taxi fares.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Background location permission is required to calculate taxi fares even when using other navigation apps or when the screen is turned off.";
+"NSLocationAlwaysUsageDescription" = "Background location permission is required to calculate taxi fares even when using other navigation apps or when the screen is turned off.";

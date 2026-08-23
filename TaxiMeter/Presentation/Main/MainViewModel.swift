@@ -3,13 +3,13 @@
 //  TaxiMeter
 //
 
-import Observation
+import Combine
+import SwiftUI
 
 /// Main ViewModel
 /// - Manages UI State for Main View
-@Observable
-public final class MainViewModel {
-    public var selectedTab: TabInfo = .home
+public final class MainViewModel: ObservableObject {
+    @Published public var selectedTab: TabInfo = .home
 
     public init() {}
 }

@@ -72,4 +72,20 @@ public final class SettingRepositoryImpl: SettingRepository, @unchecked Sendable
             value: value
         )
     }
+
+    /// Get first launch status from Preference (default true)
+    public func isFirstLaunch() -> Bool {
+        return preferenceDataSource.getBoolean(
+            key: PreferenceDefs.prefKeyFirstLaunch,
+            defaultValue: true
+        )
+    }
+
+    /// Set first launch status into Preference
+    public func setFirstLaunch(_ value: Bool) {
+        preferenceDataSource.setBoolean(
+            key: PreferenceDefs.prefKeyFirstLaunch,
+            value: value
+        )
+    }
 }

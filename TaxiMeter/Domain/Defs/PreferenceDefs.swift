@@ -13,4 +13,5 @@ public struct PreferenceDefs {
     public static let prefKeySettingTheme = "PREF_KEY_SETTING_THEME"
     public static let prefKeyMeterLegalWarningChecked = "METER_LEGAL_WARNING_CHECKED"
     public static let prefKeyThemeMode = "PREF_KEY_THEME_MODE"
+    public static let prefKeyFirstLaunch = "PREF_KEY_FIRST_LAUNCH"
 }

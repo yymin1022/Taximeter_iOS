@@ -3,12 +3,12 @@
 //  TaxiMeter
 //
 
+import Combine
 import Foundation
-import Observation
+import SwiftUI
 
-@Observable
-public final class HomeViewModel {
-    public var uiState: HomeUiState = HomeUiState()
+public final class HomeViewModel: ObservableObject {
+    @Published public var uiState: HomeUiState = HomeUiState()
     private let updateCostInfoUseCase: UpdateCostInfoUseCase
     private var hasCheckedUpdate: Bool = false
 
@@ -32,9 +32,9 @@ public final class HomeViewModel {
             case .canceled, .upToDate:
                 break
             case .success:
-                uiState.toastMessage = "Cost info is updated."
+                self.uiState.toastMessage = "Cost info is updated."
             case .failure:
-                uiState.toastMessage = "Cost info update failed. Please check network state."
+                self.uiState.toastMessage = "Cost info update failed. Please check network state."
             }
         }
     }

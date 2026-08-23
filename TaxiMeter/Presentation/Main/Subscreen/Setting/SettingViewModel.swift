@@ -3,12 +3,12 @@
 //  TaxiMeter
 //
 
+import Combine
 import Foundation
-import Observation
+import SwiftUI
 
-@Observable
-public final class SettingViewModel {
-    public var uiState: SettingUiState = SettingUiState()
+public final class SettingViewModel: ObservableObject {
+    @Published public var uiState: SettingUiState = SettingUiState()
 
     private let costRepository: CostRepository
     private let settingRepository: SettingRepository
@@ -152,13 +152,27 @@ public final class SettingViewModel {
         var subtitleText = ""
         if let info = costInfo {
             let distKm = Double(info.distBase) / 1000.0
-            if info.isNightExtra2step {
-                subtitleText = String(
-                    format: "Base: KRW %d (First %.1fkm)\nDistance cost: KRW 100 per %d meters\nTime cost: KRW 100 per %d seconds\nOut city extra: %d%%\nNight extra\n- %d%% (%02d:00 ~ %02d:00)\n- %d%% (%02d:00 ~ %02d:00)",
-                    info.costBase, distKm, info.costRunPer, info.costTimePer, info.extraRateCity,
-                    info.extraRateNight1, info.nightStartHour1, info.nightEndHour1,
-                    info.extraRateNight2, info.nightStartHour2, info.nightEndHour2
-                )
+            let formatKey = info.isNightExtra2step ? "setting_content_cost_info_format_step2" : "setting_content_cost_info_format"
+            let format = NSLocalizedString(formatKey, comment: "")
+            if format != formatKey {
+                if info.isNightExtra2step {
+                    subtitleText = String(
+                        format: format,
+                        formattedNumber(info.costBase), String(format: "%.1f", distKm),
+                        formattedNumber(info.costRunPer), formattedNumber(info.costTimePer),
+                        formattedNumber(info.extraRateCity),
+                        formattedNumber(info.extraRateNight1), info.nightStartHour1, info.nightEndHour1,
+                        formattedNumber(info.extraRateNight2), info.nightStartHour2, info.nightEndHour2
+                    )
+                } else {
+                    subtitleText = String(
+                        format: format,
+                        formattedNumber(info.costBase), String(format: "%.1f", distKm),
+                        formattedNumber(info.costRunPer), formattedNumber(info.costTimePer),
+                        formattedNumber(info.extraRateCity),
+                        formattedNumber(info.extraRateNight1), info.nightStartHour1, info.nightEndHour1
+                    )
+                }
             } else {
                 subtitleText = String(
                     format: "Base: KRW %d (First %.1fkm)\nDistance cost: KRW 100 per %d meters\nTime cost: KRW 100 per %d seconds\nOut city extra: %d%%\nNight extra\n- %d%% (%02d:00 ~ %02d:00)",
@@ -237,5 +251,11 @@ public final class SettingViewModel {
         if let url = URL(string: urlString) {
             uiState.openUrlRequest = url
         }
+    }
+
+    private func formattedNumber(_ num: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: num)) ?? "\(num)"
     }
 }

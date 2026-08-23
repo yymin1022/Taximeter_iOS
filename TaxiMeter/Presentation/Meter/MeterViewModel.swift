@@ -30,10 +30,16 @@ public final class MeterViewModel {
         self.calculateMeterCostUseCase = calculateMeterCostUseCase
 
         loadAnimationFrames()
+        loadAdRemovalStatus()
     }
 
     deinit {
         stopMeterInternal()
+    }
+
+    /// Load ad removal status
+    public func loadAdRemovalStatus() {
+        uiState.isAdRemoved = settingRepository.isAdRemoved()
     }
 
     /// Load animation frames based on current theme setting

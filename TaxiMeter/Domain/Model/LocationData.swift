@@ -15,16 +15,20 @@ public struct LocationData: Equatable, Sendable {
     public let accuracyMeters: Double
     /// GPS Timestamp (ms)
     public let timestampMillis: Int64
+    /// Instantaneous Speed (m/s)
+    public let speedMps: Double
 
     public init(
         latitude: Double = 0.0,
         longitude: Double = 0.0,
         accuracyMeters: Double = 0.0,
-        timestampMillis: Int64 = 0
+        timestampMillis: Int64 = 0,
+        speedMps: Double = 0.0
     ) {
         self.latitude = latitude
         self.longitude = longitude
         self.accuracyMeters = accuracyMeters
         self.timestampMillis = timestampMillis
+        self.speedMps = speedMps
     }
 }

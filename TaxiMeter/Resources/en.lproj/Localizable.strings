@@ -1,0 +1,150 @@
+/* Main Tabs */
+"Home" = "Home";
+"Setting" = "Setting";
+"Store" = "Store";
+
+/* Home Screen */
+"Touch to start" = "Touch to start";
+"Taxi" = "Taxi";
+"Meter" = "Meter";
+"Cost info is updated." = "Cost info is updated.";
+"Cost info update failed. Please check network state." = "Cost info update failed. Please check network state.";
+
+/* Meter Screen */
+"Current Speed" = "Current Speed";
+"Status" = "Status";
+"Not driving" = "Not driving";
+"Waiting" = "Not driving";
+"Driving..." = "Driving...";
+"GPS Error" = "GPS Error";
+"Distance" = "Distance";
+"Start" = "Start";
+"Stop" = "Stop";
+"Night rate ON" = "Night rate ON";
+"Night rate OFF" = "Night rate OFF";
+"Night Extra: On" = "Night rate ON";
+"Night Extra: Off" = "Night rate OFF";
+"City rate ON" = "City rate ON";
+"City rate OFF" = "City rate OFF";
+"Out City: On" = "City rate ON";
+"Out City: Off" = "City rate OFF";
+"Night rate will be automatically applied by time" = "Night rate will be automatically applied by time";
+"Location permission is required. Please enable location permission in Settings." = "Location permission is required. Please enable location permission in Settings.";
+
+/* Meter Dialogs */
+"Stop driving" = "Stop driving";
+"meter_dialog_stop_content" = "Cost: ₩%@\nDistance: %@ km\nStop driving?";
+"Cost: ₩%@\nDistance: %@ km\nStop driving?" = "Cost: ₩%@\nDistance: %@ km\nStop driving?";
+"Driving will be stopped and you will return to Home. Exit?" = "Driving will be stopped and you will return to Home. Exit?";
+"The meter is currently running. Do you want to stop driving and go back?" = "Driving will be stopped and you will return to Home. Exit?";
+"Meter information" = "Meter information";
+"Notice" = "Meter information";
+"This app is not an officially certified taxi meter and is for reference purposes only. Charging fares based on this app may result in fines or other penalties under South Korea's Passenger Transport Service Act (여객자동차 운수사업법)." = "This app is not an officially certified taxi meter and is for reference purposes only. Charging fares based on this app may result in fines or other penalties under South Korea's Passenger Transport Service Act (여객자동차 운수사업법).";
+"Measurement errors may occur depending on GPS status.\nPlease use this app for reference only as differences from actual taxi meters may occur." = "This app is not an officially certified taxi meter and is for reference purposes only. Charging fares based on this app may result in fines or other penalties under South Korea's Passenger Transport Service Act (여객자동차 운수사업법).";
+
+/* Setting Screen */
+"Meter Setting" = "Meter Setting";
+"Region" = "Region";
+"Set custom cost parameter" = "Set custom cost parameter";
+"To use, set region as custom" = "To use, set region as custom";
+"Setup your own cost values" = "Setup your own cost values";
+"Meter Type" = "Meter Type";
+"Theme" = "Meter Type";
+"App Theme" = "App Theme";
+"Meter Info" = "Meter Info";
+"Cost Info" = "Cost Info";
+"setting_content_cost_info_format" = "Base: KRW %@ (First %@km)\nDistance cost: KRW 100 per %@ meters\nTime cost: KRW 100 per %@ seconds\nOut city extra: %@%%\nNight extra\n- %@%% (%02d:00 ~ %02d:00)";
+"setting_content_cost_info_format_step2" = "Base: KRW %@ (First %@km)\nDistance cost: KRW 100 per %@ meters\nTime cost: KRW 100 per %@ seconds\nOut city extra: %@%%\nNight extra\n- %@%% (%02d:00 ~ %02d:00)\n- %@%% (%02d:00 ~ %02d:00)";
+"Cost DB Version" = "Cost DB Version";
+"Developer Info" = "Developer Info";
+"Useful" = "Useful";
+"Chung-Ang University Dept. Software (2019 ~ 2025)" = "Chung-Ang University Dept. Software (2019 ~ 2025)";
+"Developer's Blog" = "Developer's Blog";
+"Developer's GitHub" = "Developer's GitHub";
+"Developer's LinkedIn" = "Developer's LinkedIn";
+"Privacy Policy" = "Privacy Policy";
+
+/* Setting Dialogs */
+"Set custom cost" = "Set custom cost";
+"Select region" = "Select region";
+"Select Meter Type" = "Select Meter Type";
+"Select theme" = "Select Meter Type";
+"Select App Theme" = "Select App Theme";
+
+/* Custom Cost Input Dialog */
+"Check valid input" = "Check valid input";
+"Time must be between 0 to 23" = "Time must be between 0 to 23";
+"Base Cost" = "Base Cost";
+"Base Cost (KRW)" = "Base Cost (KRW)";
+"Base Cost Distance (m)" = "Base Cost Distance (m)";
+"Cost per Run / Time" = "Cost per Run / Time";
+"Cost per Run (m)" = "Cost per Run (m)";
+"Cost per Time (s)" = "Cost per Time (s)";
+"Extra Rate (%)" = "Extra Rate (%)";
+"Night step 1" = "Night step 1";
+"Night step 2" = "Night step 2";
+"Out city" = "Out city";
+"Night Extra Times - Step 1" = "Night Extra Times - Step 1";
+"Night Extra Times - Step 2" = "Night Extra Times - Step 2";
+"Start time (Hour)" = "Start time (Hour)";
+"End time (Hour)" = "End time (Hour)";
+
+/* Common Dialog Buttons */
+"Cancel" = "Cancel";
+"Complete" = "Complete";
+"OK" = "OK";
+"Confirm" = "OK";
+"Close" = "Close";
+
+/* Regions */
+"Seoul" = "Seoul";
+"Gangwon" = "Gangwon";
+"Gyeonggi" = "Gyeonggi";
+"Gyeongbuk" = "Gyeongbuk";
+"Gyeongnam" = "Gyeongnam";
+"Gwangju" = "Gwangju";
+"Daegu" = "Daegu";
+"Daejeon" = "Daejeon";
+"Busan" = "Busan";
+"Ulsan" = "Ulsan";
+"Incheon" = "Incheon";
+"Jeonbuk" = "Jeonbuk";
+"Jeonnam" = "Jeonnam";
+"Jeju" = "Jeju";
+"Chungbuk" = "Chungbuk";
+"Chungnam" = "Chungnam";
+"Custom" = "Custom";
+
+/* Themes */
+"Circle" = "Circle";
+"Horse" = "Horse";
+"Circle Meter" = "Circle";
+"Horse Meter" = "Horse";
+"System default" = "System default";
+"Dark theme" = "Dark theme";
+"Light theme" = "Light theme";
+
+/* Store Screen */
+"Already Purchased" = "Already Purchased";
+"Currently empty. Coming soon..!" = "Currently empty. Coming soon..!";
+"Purchase" = "Purchase";
+"Purchased" = "Already Purchased";
+"Failed to load store data." = "Failed to load store data.";
+"Failed to load purchase history." = "Failed to load purchase history.";
+"Purchase is canceled." = "Purchase is canceled.";
+"Failed to process purchasing." = "Failed to process purchasing.";
+"Purchase is currently pending." = "Purchase is currently pending.";
+"Purchase completed successfully." = "Purchase completed successfully.";
+"구매가 완료되었습니다." = "Purchase completed successfully.";
+"구매가 취소되었습니다." = "Purchase is canceled.";
+"결제 처리에 실패하였습니다." = "Failed to process purchasing.";
+"결제가 대기 중입니다." = "Purchase is currently pending.";
+
+/* Fallback Ads */
+"Visit" = "Visit";
+"Remove Advertisement" = "Remove Advertisement";
+"Enjoy clean meter screen!" = "Enjoy clean meter screen!";
+"Useful Blog" = "Useful Blog";
+"Developer Useful's IT Blog" = "Developer Useful's IT Blog";
+"Typer: ASMR Keyboard Smash" = "Typer: ASMR Keyboard Smash";
+"Keyboard ASMR & Brick Breaker" = "Keyboard ASMR & Brick Breaker";

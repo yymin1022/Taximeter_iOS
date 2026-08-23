@@ -1,0 +1,150 @@
+/* Main Tabs */
+"Home" = "홈";
+"Setting" = "설정";
+"Store" = "결제";
+
+/* Home Screen */
+"Touch to start" = "터치하여 시작하기";
+"Taxi" = "택시";
+"Meter" = "미터기";
+"Cost info is updated." = "요금정보가 업데이트 되었습니다.";
+"Cost info update failed. Please check network state." = "요금정보 업데이트에 실패하였습니다. 네트워크 상태를 확인해주세요.";
+
+/* Meter Screen */
+"Current Speed" = "현재 속도";
+"Status" = "주행 상태";
+"Not driving" = "주행 대기 중";
+"Waiting" = "주행 대기 중";
+"Driving..." = "주행 중...";
+"GPS Error" = "GPS 오류";
+"Distance" = "주행 거리";
+"Start" = "주행 시작";
+"Stop" = "주행 종료";
+"Night rate ON" = "야간할증 적용 중";
+"Night rate OFF" = "야간할증 미적용";
+"Night Extra: On" = "야간할증 적용 중";
+"Night Extra: Off" = "야간할증 미적용";
+"City rate ON" = "시외할증 적용 중";
+"City rate OFF" = "시외할증 미적용";
+"Out City: On" = "시외할증 적용 중";
+"Out City: Off" = "시외할증 미적용";
+"Night rate will be automatically applied by time" = "야간할증은 시간에 따라 자동으로 적용됩니다.";
+"Location permission is required. Please enable location permission in Settings." = "위치 권한이 필요합니다. 설정에서 위치 권한을 허용해주세요.";
+
+/* Meter Dialogs */
+"Stop driving" = "주행 종료";
+"meter_dialog_stop_content" = "요금: %@원\n주행 거리: %@km\n주행을 종료하시겠습니까?";
+"Cost: ₩%@\nDistance: %@ km\nStop driving?" = "요금: %@원\n주행 거리: %@km\n주행을 종료하시겠습니까?";
+"Driving will be stopped and you will return to Home. Exit?" = "주행을 종료하고 홈 화면으로 이동하시겠습니까?";
+"The meter is currently running. Do you want to stop driving and go back?" = "주행을 종료하고 홈 화면으로 이동하시겠습니까?";
+"Meter information" = "미터기 안내";
+"Notice" = "미터기 안내";
+"This app is not an officially certified taxi meter and is for reference purposes only. Charging fares based on this app may result in fines or other penalties under South Korea's Passenger Transport Service Act (여객자동차 운수사업법)." = "본 미터기 앱은 공식 인증된 미터기 앱이 아니므로 참고용으로만 사용해주세요. 이 앱으로 요금을 청구하는 경우, 「여객자동차 운수사업법」에 따라 과태료 등 처벌을 받을 수 있습니다.";
+"Measurement errors may occur depending on GPS status.\nPlease use this app for reference only as differences from actual taxi meters may occur." = "본 미터기 앱은 공식 인증된 미터기 앱이 아니므로 참고용으로만 사용해주세요. 이 앱으로 요금을 청구하는 경우, 「여객자동차 운수사업법」에 따라 과태료 등 처벌을 받을 수 있습니다.";
+
+/* Setting Screen */
+"Meter Setting" = "미터기 설정";
+"Region" = "지역";
+"Set custom cost parameter" = "요금정보 직접 설정";
+"To use, set region as custom" = "요금정보를 직접 설정하려면, 먼저 지역을 커스텀으로 변경해주세요.";
+"Setup your own cost values" = "요금정보를 직접 설정하세요.";
+"Meter Type" = "미터기 종류";
+"Theme" = "미터기 종류";
+"App Theme" = "테마";
+"Meter Info" = "미터기 정보";
+"Cost Info" = "요금 정보";
+"setting_content_cost_info_format" = "기본요금: %@원 (%@km까지)\n거리요금: %@m당 100원\n시간요금: %@초당 100원\n시외할증: %@%%\n심야할증\n- %@%% (%02d:00 ~ %02d:00)";
+"setting_content_cost_info_format_step2" = "기본요금: %@원 (%@km까지)\n거리요금: %@m당 100원\n시간요금: %@초당 100원\n시외할증: %@%%\n심야할증\n- %@%% (%02d:00 ~ %02d:00)\n- %@%% (%02d:00 ~ %02d:00)";
+"Cost DB Version" = "요금 정보 DB 버전";
+"Developer Info" = "개발자 정보";
+"Useful" = "Useful";
+"Chung-Ang University Dept. Software (2019 ~ 2025)" = "중앙대학교 소프트웨어학부 (2019 ~ 2025)";
+"Developer's Blog" = "개발자 블로그";
+"Developer's GitHub" = "개발자 GitHub";
+"Developer's LinkedIn" = "개발자 LinkedIn";
+"Privacy Policy" = "개인정보 처리방침";
+
+/* Setting Dialogs */
+"Set custom cost" = "커스텀 요금정보 설정";
+"Select region" = "지역 선택";
+"Select Meter Type" = "미터기 종류 선택";
+"Select theme" = "미터기 종류 선택";
+"Select App Theme" = "테마 선택";
+
+/* Custom Cost Input Dialog */
+"Check valid input" = "입력한 내용이 올바르지 않습니다.";
+"Time must be between 0 to 23" = "시간 정보는 0시부터 23시 사이로만 가능합니다.";
+"Base Cost" = "기본 요금";
+"Base Cost (KRW)" = "기본 요금 (원)";
+"Base Cost Distance (m)" = "기본 요금 주행 거리 (m)";
+"Cost per Run / Time" = "거리 / 시간 당 요금";
+"Cost per Run (m)" = "거리 요금 단위 (m)";
+"Cost per Time (s)" = "시간 요금 단위 (초)";
+"Extra Rate (%)" = "할증 비율 (%)";
+"Night step 1" = "야간 할증 1단계";
+"Night step 2" = "야간 할증 2단계";
+"Out city" = "시외 할증";
+"Night Extra Times - Step 1" = "야간 할증 1단계 시간 정보";
+"Night Extra Times - Step 2" = "야간 할증 2단계 시간 정보";
+"Start time (Hour)" = "시작 시간 (시)";
+"End time (Hour)" = "종료 시간 (시)";
+
+/* Common Dialog Buttons */
+"Cancel" = "취소";
+"Complete" = "완료";
+"OK" = "확인";
+"Confirm" = "확인";
+"Close" = "닫기";
+
+/* Regions */
+"Seoul" = "서울특별시";
+"Gangwon" = "강원도";
+"Gyeonggi" = "경기도";
+"Gyeongbuk" = "경상북도";
+"Gyeongnam" = "경상남도";
+"Gwangju" = "광주광역시";
+"Daegu" = "대구광역시";
+"Daejeon" = "대전광역시";
+"Busan" = "부산광역시";
+"Ulsan" = "울산광역시";
+"Incheon" = "인천광역시";
+"Jeonbuk" = "전라북도";
+"Jeonnam" = "전라남도";
+"Jeju" = "제주도";
+"Chungbuk" = "충청북도";
+"Chungnam" = "충청남도";
+"Custom" = "커스텀";
+
+/* Themes */
+"Circle" = "원형 미터기";
+"Horse" = "말 미터기";
+"Circle Meter" = "원형 미터기";
+"Horse Meter" = "말 미터기";
+"System default" = "시스템 설정 적용";
+"Dark theme" = "다크 테마";
+"Light theme" = "라이트 테마";
+
+/* Store Screen */
+"Already Purchased" = "이미 구매된 항목입니다.";
+"Currently empty. Coming soon..!" = "구매할 항목이 없습니다. 나중에 다시 시도해주세요.";
+"Purchase" = "구매하기";
+"Purchased" = "이미 구매된 항목입니다.";
+"Failed to load store data." = "구매 정보를 불러오는데 실패하였습니다.";
+"Failed to load purchase history." = "구매 기록을 불러오는데 실패하였습니다.";
+"Purchase is canceled." = "구매가 취소되었습니다.";
+"Failed to process purchasing." = "구매 진행에 실패하였습니다.";
+"Purchase is currently pending." = "구매 진행이 지연되고 있습니다.";
+"Purchase completed successfully." = "구매가 완료되었습니다.";
+"구매가 완료되었습니다." = "구매가 완료되었습니다.";
+"구매가 취소되었습니다." = "구매가 취소되었습니다.";
+"결제 처리에 실패하였습니다." = "구매 진행에 실패하였습니다.";
+"결제가 대기 중입니다." = "구매 진행이 지연되고 있습니다.";
+
+/* Fallback Ads */
+"Visit" = "방문하기";
+"Remove Advertisement" = "광고 제거하기";
+"Enjoy clean meter screen!" = "깔끔한 택시미터기를 사용해보세요!";
+"Useful Blog" = "Useful Blog";
+"Developer Useful's IT Blog" = "1인개발자 Useful의 IT블로그";
+"Typer: ASMR Keyboard Smash" = "Typer: ASMR 키보드 벽돌깨기";
+"Keyboard ASMR & Brick Breaker" = "도각도각 힐링 사운드, 나만의 키보드를 만들고, 데스크테리어를 완성해보세요!";

@@ -4,6 +4,9 @@
 //
 
 import SwiftUI
+#if canImport(AppTrackingTransparency)
+import AppTrackingTransparency
+#endif
 
 public struct MainView: View {
     @State private var viewModel: MainViewModel
@@ -23,6 +26,19 @@ public struct MainView: View {
             floatingTabBar
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
+        .onAppear {
+            requestTrackingAuthorizationIfNeeded()
+        }
+    }
+
+    private func requestTrackingAuthorizationIfNeeded() {
+        #if canImport(AppTrackingTransparency)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if ATTrackingManager.trackingAuthorizationStatus == .notDetermined {
+                ATTrackingManager.requestTrackingAuthorization { _ in }
+            }
+        }
+        #endif
     }
     
     @ViewBuilder

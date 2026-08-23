@@ -23,4 +23,8 @@ public protocol SettingRepository: Sendable {
     // Ad
     func isAdRemoved() -> Bool
     func setAdRemoved(_ value: Bool)
+
+    // First Launch
+    func isFirstLaunch() -> Bool
+    func setFirstLaunch(_ value: Bool)
 }

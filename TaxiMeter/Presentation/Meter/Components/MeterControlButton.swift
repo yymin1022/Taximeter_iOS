@@ -26,14 +26,14 @@ public struct MeterControlButton: View {
 
     public var body: some View {
         Button(action: onClick) {
-            Text(text)
+            Text(LocalizedStringKey(text))
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundColor(textColor)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
                 .background(color, in: Capsule())
-                .glassEffect()
+                .applyGlassEffect(in: Capsule())
         }
     }
 }

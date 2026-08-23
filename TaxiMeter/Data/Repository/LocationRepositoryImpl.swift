@@ -108,7 +108,8 @@ public final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocat
             latitude: location.coordinate.latitude,
             longitude: location.coordinate.longitude,
             accuracyMeters: location.horizontalAccuracy,
-            timestampMillis: Int64(location.timestamp.timeIntervalSince1970 * 1000)
+            timestampMillis: Int64(location.timestamp.timeIntervalSince1970 * 1000),
+            speedMps: max(0.0, location.speed)
         )
 
         lock.lock()

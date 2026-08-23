@@ -88,7 +88,21 @@ public final class MeterViewModel: ObservableObject {
             continuation.yield(self.uiState.isCityRate)
         }
 
-        uiState.meterStatus = .running
+        // Clean initial state for new driving session
+        let isAdRemoved = settingRepository.isAdRemoved()
+        let frames = uiState.animationFrames
+        let isCityRate = uiState.isCityRate
+        uiState = MeterUiState(
+            currentCost: costInfo.costBase,
+            costCounter: costInfo.distBase,
+            currentSpeedKph: 0.0,
+            totalDistanceMeters: 0.0,
+            meterStatus: .running,
+            isCityRate: isCityRate,
+            isNightRate: false,
+            animationFrames: frames,
+            isAdRemoved: isAdRemoved
+        )
 
         // Keep screen on during driving
         UIApplication.shared.isIdleTimerDisabled = true
@@ -188,9 +202,18 @@ public final class MeterViewModel: ObservableObject {
         // Restore normal screen sleep timer
         UIApplication.shared.isIdleTimerDisabled = false
 
+        let currentRegion = settingRepository.getCurrentRegion()
+        let costInfo = costRepository.getCostInfo(regionKey: currentRegion.key) ?? CostInfo(region: currentRegion.key)
         let frames = uiState.animationFrames
         let isAdRemoved = settingRepository.isAdRemoved()
         uiState = MeterUiState(
+            currentCost: costInfo.costBase,
+            costCounter: costInfo.distBase,
+            currentSpeedKph: 0.0,
+            totalDistanceMeters: 0.0,
+            meterStatus: .notRunning,
+            isCityRate: false,
+            isNightRate: false,
             animationFrames: frames,
             isAdRemoved: isAdRemoved
         )

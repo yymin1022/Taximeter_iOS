@@ -6,11 +6,11 @@
 import SwiftUI
 
 public struct HomeView: View {
-    @State private var viewModel: HomeViewModel
-    @Environment(AppRouter.self) private var appRouter
+    @StateObject private var viewModel: HomeViewModel
+    @EnvironmentObject private var appRouter: AppRouter
 
     public init(viewModel: HomeViewModel = HomeViewModel()) {
-        self._viewModel = State(initialValue: viewModel)
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
     public var body: some View {
@@ -75,7 +75,7 @@ public struct HomeView: View {
         VStack {
             Spacer()
 
-            Text(message)
+            Text(LocalizedStringKey(message))
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.white)
                 .padding(.horizontal, 18)
@@ -98,5 +98,5 @@ public struct HomeView: View {
 
 #Preview {
     HomeView()
-        .environment(AppRouter())
+        .environmentObject(AppRouter())
 }

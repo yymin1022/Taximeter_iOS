@@ -3,14 +3,13 @@
 //  TaxiMeter
 //
 
+import Combine
 import SwiftUI
-import Observation
 
 /// App Navigation Router
-/// - Manages NavigationPath and route transitions
-@Observable
-public final class AppRouter {
-    public var path: NavigationPath = NavigationPath()
+/// - Manages routes stack and transitions for TaxiMeterNavRoute
+public final class AppRouter: ObservableObject {
+    @Published public var routes: [TaxiMeterNavRoute] = []
 
     public init() {}
 
@@ -18,16 +17,16 @@ public final class AppRouter {
         if route == .main {
             popToRoot()
         } else {
-            path.append(route)
+            routes.append(route)
         }
     }
 
     public func pop() {
-        guard !path.isEmpty else { return }
-        path.removeLast()
+        guard !routes.isEmpty else { return }
+        routes.removeLast()
     }
 
     public func popToRoot() {
-        path = NavigationPath()
+        routes.removeAll()
     }
 }

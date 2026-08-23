@@ -29,7 +29,7 @@ public struct CustomCostInputDialog: View {
     }
 
     public var body: some View {
-        NavigationStack {
+        NavigationView {
             Form {
                 Section(header: Text("Base Cost")) {
                     inputRow("Base Cost (KRW)", text: $costBase)
@@ -47,8 +47,7 @@ public struct CustomCostInputDialog: View {
                     inputRow("Night step 2", text: $extraRateNight2)
                 }
             }
-            .formStyle(.grouped)
-            .navigationTitle(title)
+            .navigationTitle(LocalizedStringKey(title))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -74,23 +73,35 @@ public struct CustomCostInputDialog: View {
                         )
                         onConfirm(costInfo)
                     }
-                    .bold()
+                    .font(.body.weight(.semibold))
                 }
             }
         }
-        .presentationDetents([.large])
-        .presentationDragIndicator(.visible)
+        .navigationViewStyle(.stack)
+        .ifAvailablePresentationDetentsLarge()
     }
 
     private func inputRow(_ label: String, text: Binding<String>) -> some View {
         HStack {
-            Text(label)
+            Text(LocalizedStringKey(label))
                 .foregroundColor(.primary)
             Spacer(minLength: 16)
             TextField(label, text: text)
                 .keyboardType(.numberPad)
                 .multilineTextAlignment(.trailing)
                 .foregroundColor(.secondary)
+        }
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func ifAvailablePresentationDetentsLarge() -> some View {
+        if #available(iOS 16.0, *) {
+            self.presentationDetents([.large])
+                .presentationDragIndicator(.visible)
+        } else {
+            self
         }
     }
 }

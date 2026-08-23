@@ -4,7 +4,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 #if canImport(FirebaseCore)
 import FirebaseCore
@@ -17,19 +16,6 @@ import GoogleMobileAds
 @main
 struct TaxiMeterApp: App {
     let logger: AppLogger
-    
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
 
     init() {
         #if canImport(FirebaseCore)
@@ -51,6 +37,5 @@ struct TaxiMeterApp: App {
             ContentView()
                 .meterTheme()
         }
-        .modelContainer(sharedModelContainer)
     }
 }

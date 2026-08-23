@@ -6,29 +6,29 @@
 import SwiftUI
 
 public struct SettingView: View {
-    @State private var viewModel: SettingViewModel
-    @State private var activeSafariUrl: URL?
+    @StateObject private var viewModel: SettingViewModel
+    @State private var activeSafariItem: IdentifiableURL?
 
     public init(viewModel: SettingViewModel = SettingViewModel()) {
-        self._viewModel = State(initialValue: viewModel)
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
     public var body: some View {
         List {
             ForEach(Array(viewModel.uiState.settingGroups.enumerated()), id: \.element.id) { idx, group in
-                Section(header: Text(group.title)) {
+                Section(header: Text(LocalizedStringKey(group.title))) {
                     ForEach(group.items) { item in
                         Button {
                             item.onClick?()
                         } label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
-                                    Text(item.title)
+                                    Text(LocalizedStringKey(item.title))
                                         .font(.body)
                                         .foregroundColor(.primary)
 
                                     if let subtitle = item.subtitle {
-                                        Text(subtitle)
+                                        Text(LocalizedStringKey(subtitle))
                                             .font(.subheadline)
                                             .foregroundColor(.secondary)
                                     }
@@ -57,14 +57,14 @@ public struct SettingView: View {
         .onAppear {
             viewModel.loadSettingGroups()
         }
-        .onChange(of: viewModel.uiState.openUrlRequest) { _, newUrl in
+        .onChange(of: viewModel.uiState.openUrlRequest) { newUrl in
             if let url = newUrl {
-                activeSafariUrl = url
+                activeSafariItem = IdentifiableURL(url: url)
                 viewModel.clearOpenUrlRequest()
             }
         }
-        .sheet(item: $activeSafariUrl) { url in
-            SFSafariView(url: url)
+        .sheet(item: $activeSafariItem) { item in
+            SFSafariView(url: item.url)
                 .ignoresSafeArea()
         }
         .sheet(isPresented: Binding(
@@ -106,8 +106,13 @@ public struct SettingView: View {
     }
 }
 
-extension URL: @retroactive Identifiable {
-    public var id: String { absoluteString }
+public struct IdentifiableURL: Identifiable {
+    public var id: String { url.absoluteString }
+    public let url: URL
+
+    public init(url: URL) {
+        self.url = url
+    }
 }
 
 #Preview {

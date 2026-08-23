@@ -27,7 +27,7 @@ public struct RadioSelectDialog: View {
     }
 
     public var body: some View {
-        NavigationStack {
+        NavigationView {
             List {
                 Section {
                     ForEach(0..<items.count, id: \.self) { idx in
@@ -38,7 +38,7 @@ public struct RadioSelectDialog: View {
                             }
                         } label: {
                             HStack {
-                                Text(items[idx])
+                                Text(LocalizedStringKey(items[idx]))
                                     .foregroundColor(.primary)
                                 Spacer()
                                 if selectedIndex == idx {
@@ -54,7 +54,7 @@ public struct RadioSelectDialog: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle(title)
+            .navigationTitle(LocalizedStringKey(title))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -66,11 +66,23 @@ public struct RadioSelectDialog: View {
                     Button("Complete") {
                         onConfirm(selectedIndex)
                     }
-                    .bold()
+                    .font(.body.weight(.semibold))
                 }
             }
         }
-        .presentationDetents([.medium, .large])
-        .presentationDragIndicator(.visible)
+        .navigationViewStyle(.stack)
+        .ifAvailablePresentationDetentsMediumLarge()
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func ifAvailablePresentationDetentsMediumLarge() -> some View {
+        if #available(iOS 16.0, *) {
+            self.presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+        } else {
+            self
+        }
     }
 }

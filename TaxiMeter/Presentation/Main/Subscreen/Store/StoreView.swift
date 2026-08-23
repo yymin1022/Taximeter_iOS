@@ -6,10 +6,10 @@
 import SwiftUI
 
 public struct StoreView: View {
-    @State private var viewModel: StoreViewModel
+    @StateObject private var viewModel: StoreViewModel
 
     public init(viewModel: StoreViewModel = StoreViewModel()) {
-        self._viewModel = State(initialValue: viewModel)
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
 
     public var body: some View {
@@ -45,7 +45,7 @@ public struct StoreView: View {
             if let snackBarMsg = viewModel.uiState.snackBarMessage {
                 VStack {
                     Spacer()
-                    Text(snackBarMsg)
+                    Text(LocalizedStringKey(snackBarMsg))
                         .font(.subheadline)
                         .foregroundColor(.white)
                         .padding(.horizontal, 16)
@@ -76,12 +76,12 @@ public struct StoreView: View {
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {
-                        Text(item.title)
+                        Text(LocalizedStringKey(item.title))
                             .font(.headline)
                             .foregroundColor(.primary)
 
                         if item.isPurchased {
-                            Text("구매됨")
+                            Text(LocalizedStringKey("Purchased"))
                                 .font(.caption2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -91,7 +91,7 @@ public struct StoreView: View {
                         }
                     }
 
-                    Text(item.desc)
+                    Text(LocalizedStringKey(item.desc))
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.leading)
@@ -127,7 +127,7 @@ public struct StoreView: View {
                     ProgressView()
                         .tint(.white)
                 } else {
-                    Text("구매하기")
+                    Text(LocalizedStringKey("Purchase"))
                         .font(.headline)
                         .foregroundColor(.white)
                 }

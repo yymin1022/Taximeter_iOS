@@ -37,12 +37,12 @@ public struct FallbackAdContent: View {
 
                 // Title & Description
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(fallbackAd.title)
+                    Text(LocalizedStringKey(fallbackAd.title))
                         .font(.footnote.weight(.bold))
                         .foregroundColor(fallbackAd.textColor)
                         .lineLimit(1)
 
-                    Text(fallbackAd.desc)
+                    Text(LocalizedStringKey(fallbackAd.desc))
                         .font(.caption2)
                         .foregroundColor(fallbackAd.textColor.opacity(0.8))
                         .lineLimit(1)
@@ -52,7 +52,7 @@ public struct FallbackAdContent: View {
 
                 // CTA Text
                 if fallbackAd.targetUrl != nil {
-                    Text(fallbackAd.ctaText)
+                    Text(LocalizedStringKey(fallbackAd.ctaText))
                         .font(.caption.weight(.bold))
                         .foregroundColor(fallbackAd.textColor)
                 }

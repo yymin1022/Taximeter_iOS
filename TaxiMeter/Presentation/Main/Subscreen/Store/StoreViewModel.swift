@@ -3,12 +3,12 @@
 //  TaxiMeter
 //
 
+import Combine
 import Foundation
-import Observation
+import SwiftUI
 
-@Observable
-public final class StoreViewModel {
-    public var uiState: StoreUiState = StoreUiState()
+public final class StoreViewModel: ObservableObject {
+    @Published public var uiState: StoreUiState = StoreUiState()
 
     private let billingRepository: BillingRepository
 
@@ -48,7 +48,7 @@ public final class StoreViewModel {
             let productsResult = await billingRepository.queryProducts(productIds: Self.productsAll)
             switch productsResult {
             case .failure:
-                showSnackBar("상품 정보를 불러오는데 실패하였습니다.")
+                showSnackBar("Failed to load store data.")
             case .success(let products):
                 // Sort: ad_remove at top, donation products by price micros ascending
                 let sortedProducts = products.sorted { p1, p2 in
@@ -108,13 +108,13 @@ public final class StoreViewModel {
                 let result = await repoImpl.launchPurchase(productId: productID)
                 switch result {
                 case .success:
-                    showSnackBar("구매가 완료되었습니다.")
+                    showSnackBar("Purchase completed successfully.")
                     loadProducts()
-                case .failure(let error):
-                    showSnackBar("결제 처리에 실패하였습니다: \(error.localizedDescription)")
+                case .failure:
+                    showSnackBar("Failed to process purchasing.")
                 }
             } else {
-                showSnackBar("구매가 완료되었습니다.")
+                showSnackBar("Purchase completed successfully.")
                 loadProducts()
             }
             uiState.isPurchasing = false
@@ -133,7 +133,7 @@ public final class StoreViewModel {
                             self.handleCompletedPurchase(purchase)
                         }
                     case .failure:
-                        self.showSnackBar("결제 처리에 실패하였습니다.")
+                        self.showSnackBar("Failed to process purchasing.")
                     }
                 }
             }
@@ -142,10 +142,10 @@ public final class StoreViewModel {
 
     private func handleCompletedPurchase(_ purchase: BillingPurchase) {
         if purchase.state == .purchased {
-            showSnackBar("구매가 완료되었습니다.")
+            showSnackBar("Purchase completed successfully.")
             loadProducts()
         } else if purchase.state == .pending {
-            showSnackBar("결제가 대기 중입니다.")
+            showSnackBar("Purchase is currently pending.")
         }
     }
 

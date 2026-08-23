@@ -31,6 +31,9 @@ public struct MeterUiState: Equatable, Sendable {
     /// SnackBar / Toast message
     public var snackBarMessage: String?
 
+    /// Whether advertisement is removed
+    public var isAdRemoved: Bool
+
     public init(
         currentCost: Int = 0,
         costCounter: Int = 0,
@@ -41,7 +44,8 @@ public struct MeterUiState: Equatable, Sendable {
         isNightRate: Bool = false,
         animationFrames: [String] = [],
         showStopDialog: Bool = false,
-        snackBarMessage: String? = nil
+        snackBarMessage: String? = nil,
+        isAdRemoved: Bool = false
     ) {
         self.currentCost = currentCost
         self.costCounter = costCounter
@@ -53,5 +57,6 @@ public struct MeterUiState: Equatable, Sendable {
         self.animationFrames = animationFrames
         self.showStopDialog = showStopDialog
         self.snackBarMessage = snackBarMessage
+        self.isAdRemoved = isAdRemoved
     }
 }

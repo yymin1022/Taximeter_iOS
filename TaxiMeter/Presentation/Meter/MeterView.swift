@@ -100,7 +100,13 @@ public struct MeterView: View {
             // Control Buttons
             controlView
                 .padding(.horizontal, 16)
-                .padding(.bottom, 24)
+                .padding(.bottom, 16)
+
+            // Banner Ad
+            if !viewModel.uiState.isAdRemoved {
+                BannerAdView()
+                    .padding(.bottom, 8)
+            }
         }
     }
 
@@ -129,11 +135,17 @@ public struct MeterView: View {
                 Spacer()
 
                 meterInfoView
-                    .padding(.vertical, 12)
+                    .padding(.vertical, 8)
 
                 controlView
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 12)
+
+                // Banner Ad
+                if !viewModel.uiState.isAdRemoved {
+                    BannerAdView()
+                        .padding(.bottom, 6)
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }

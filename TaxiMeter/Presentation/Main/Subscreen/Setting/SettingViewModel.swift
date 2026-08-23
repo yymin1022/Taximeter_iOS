@@ -40,6 +40,7 @@ public final class SettingViewModel {
         // 3. Developer Info Setting Group
         groups.append(loadDeveloperInfoSettingGroup())
 
+        uiState.isAdRemoved = settingRepository.isAdRemoved()
         uiState.settingGroups = groups
     }
 

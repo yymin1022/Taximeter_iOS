@@ -56,4 +56,20 @@ public final class SettingRepositoryImpl: SettingRepository, @unchecked Sendable
     public func setTheme(_ value: ThemeSetting) {
         preferenceDataSource.setString(key: Self.prefKeySettingTheme, value: value.key)
     }
+
+    /// Get ad removal status from Preference
+    public func isAdRemoved() -> Bool {
+        return preferenceDataSource.getBoolean(
+            key: PreferenceDefs.prefKeyAdRemove,
+            defaultValue: false
+        )
+    }
+
+    /// Set ad removal status into Preference
+    public func setAdRemoved(_ value: Bool) {
+        preferenceDataSource.setBoolean(
+            key: PreferenceDefs.prefKeyAdRemove,
+            value: value
+        )
+    }
 }

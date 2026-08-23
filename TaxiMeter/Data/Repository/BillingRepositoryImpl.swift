@@ -60,12 +60,16 @@ public final class BillingRepositoryImpl: BillingRepository, @unchecked Sendable
 
     public func queryExistingPurchases() async -> Result<[BillingPurchase], Error> {
         var purchases: [BillingPurchase] = []
+        var hasAdRemove = false
         for await result in Transaction.currentEntitlements {
             if case .verified(let transaction) = result {
                 purchases.append(mapTransactionToPurchase(transaction))
-                handleAdRemovalStatus(for: transaction)
+                if transaction.productID == "ad_remove" && transaction.revocationDate == nil {
+                    hasAdRemove = true
+                }
             }
         }
+        preferenceDataSource.setBoolean(key: PreferenceDefs.prefKeyAdRemove, value: hasAdRemove)
         return .success(purchases)
     }
 
@@ -116,11 +120,15 @@ public final class BillingRepositoryImpl: BillingRepository, @unchecked Sendable
     }
 
     private func checkExistingEntitlementsOnLaunch() async {
+        var hasAdRemove = false
         for await result in Transaction.currentEntitlements {
             if case .verified(let transaction) = result {
-                handleAdRemovalStatus(for: transaction)
+                if transaction.productID == "ad_remove" && transaction.revocationDate == nil {
+                    hasAdRemove = true
+                }
             }
         }
+        preferenceDataSource.setBoolean(key: PreferenceDefs.prefKeyAdRemove, value: hasAdRemove)
     }
 
     private func startTransactionListener() {
@@ -135,8 +143,9 @@ public final class BillingRepositoryImpl: BillingRepository, @unchecked Sendable
     }
 
     private func handleAdRemovalStatus(for transaction: Transaction) {
-        if transaction.productID == "ad_remove" && transaction.revocationDate == nil {
-            preferenceDataSource.setBoolean(key: PreferenceDefs.prefKeyAdRemove, value: true)
+        if transaction.productID == "ad_remove" {
+            let isPurchased = transaction.revocationDate == nil
+            preferenceDataSource.setBoolean(key: PreferenceDefs.prefKeyAdRemove, value: isPurchased)
         }
     }
 

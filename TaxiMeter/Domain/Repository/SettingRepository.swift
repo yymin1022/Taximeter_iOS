@@ -19,4 +19,8 @@ public protocol SettingRepository: Sendable {
     // Theme
     func getCurrentTheme() -> ThemeSetting
     func setTheme(_ value: ThemeSetting)
+
+    // Ad
+    func isAdRemoved() -> Bool
+    func setAdRemoved(_ value: Bool)
 }

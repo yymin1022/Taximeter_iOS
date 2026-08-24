@@ -69,7 +69,7 @@ public final class SettingViewModel: ObservableObject {
                     onClick: { [weak self] in self?.onClickRegionSettingItem() }
                 ),
                 SettingItem(
-                    title: "Theme",
+                    title: "Meter Type",
                     subtitle: curThemeText,
                     onClick: { [weak self] in self?.onClickThemeSettingItem() }
                 )
@@ -124,7 +124,7 @@ public final class SettingViewModel: ObservableObject {
         let selectedIndex = ThemeSetting.allCases.firstIndex(of: currentTheme) ?? 0
 
         uiState.showDialog = .radioSelectDialog(
-            title: "Select theme",
+            title: "Select Meter Type",
             items: items,
             selectedIndex: selectedIndex,
             onComplete: { [weak self] idx in

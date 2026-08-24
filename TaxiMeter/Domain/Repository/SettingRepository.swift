@@ -27,4 +27,9 @@ public protocol SettingRepository: Sendable {
     // First Launch
     func isFirstLaunch() -> Bool
     func setFirstLaunch(_ value: Bool)
+
+    // App Theme Mode
+    func getThemeMode() -> ThemeModeSetting
+    func setThemeMode(_ value: ThemeModeSetting)
+    func observeThemeMode() -> AsyncStream<ThemeModeSetting>
 }

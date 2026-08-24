@@ -59,6 +59,7 @@ public final class SettingViewModel: ObservableObject {
         let currentRegion = settingRepository.getCurrentRegion()
         let curRegionText = currentRegion.displayName
         let curThemeText = settingRepository.getCurrentTheme().displayName
+        let curThemeModeText = settingRepository.getThemeMode().displayName
 
         return SettingItemGroup(
             title: "Meter Setting",
@@ -69,9 +70,14 @@ public final class SettingViewModel: ObservableObject {
                     onClick: { [weak self] in self?.onClickRegionSettingItem() }
                 ),
                 SettingItem(
-                    title: "Theme",
+                    title: "Meter Type",
                     subtitle: curThemeText,
                     onClick: { [weak self] in self?.onClickThemeSettingItem() }
+                ),
+                SettingItem(
+                    title: "App Theme",
+                    subtitle: curThemeModeText,
+                    onClick: { [weak self] in self?.onClickThemeModeSettingItem() }
                 )
             ]
         )
@@ -124,7 +130,7 @@ public final class SettingViewModel: ObservableObject {
         let selectedIndex = ThemeSetting.allCases.firstIndex(of: currentTheme) ?? 0
 
         uiState.showDialog = .radioSelectDialog(
-            title: "Select theme",
+            title: "Select Meter Type",
             items: items,
             selectedIndex: selectedIndex,
             onComplete: { [weak self] idx in
@@ -137,6 +143,29 @@ public final class SettingViewModel: ObservableObject {
         guard idx >= 0 && idx < ThemeSetting.allCases.count else { return }
         let selectedTheme = ThemeSetting.allCases[idx]
         settingRepository.setTheme(selectedTheme)
+        loadSettingGroups()
+        dismissDialog()
+    }
+
+    private func onClickThemeModeSettingItem() {
+        let items = ThemeModeSetting.allCases.map { $0.displayName }
+        let currentMode = settingRepository.getThemeMode()
+        let selectedIndex = ThemeModeSetting.allCases.firstIndex(of: currentMode) ?? 0
+
+        uiState.showDialog = .radioSelectDialog(
+            title: "Select App Theme",
+            items: items,
+            selectedIndex: selectedIndex,
+            onComplete: { [weak self] idx in
+                self?.onCompleteThemeModeSetting(idx)
+            }
+        )
+    }
+
+    private func onCompleteThemeModeSetting(_ idx: Int) {
+        guard idx >= 0 && idx < ThemeModeSetting.allCases.count else { return }
+        let selectedMode = ThemeModeSetting.allCases[idx]
+        settingRepository.setThemeMode(selectedMode)
         loadSettingGroups()
         dismissDialog()
     }

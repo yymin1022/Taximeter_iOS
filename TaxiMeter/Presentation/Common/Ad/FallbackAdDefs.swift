@@ -38,7 +38,7 @@ public enum FallbackAdDefs {
         iconName: "ic_typer",
         title: "Typer: ASMR Keyboard Smash",
         desc: "Keyboard ASMR & Brick Breaker",
-        targetUrl: "https://apps.apple.com/kr/app/id6753107938"
+        targetUrl: "https://apps.apple.com/kr/app/typer-asmr-keyboard-smash/id6753107938?utm_source=useful_taximeter&utm_campaign=typer_crosspromo_banner"
     )
 
     public static var fallbackAdList: [FallbackAd] = [

@@ -88,4 +88,49 @@ public final class SettingRepositoryImpl: SettingRepository, @unchecked Sendable
             value: value
         )
     }
+
+    private var themeModeContinuations: [UUID: AsyncStream<ThemeModeSetting>.Continuation] = [:]
+    private let themeModeLock = NSLock()
+
+    /// Get current theme mode setting from Preference (default system)
+    public func getThemeMode() -> ThemeModeSetting {
+        let themeModeKey = preferenceDataSource.getString(
+            key: PreferenceDefs.prefKeyThemeMode,
+            defaultValue: ThemeModeSetting.system.key
+        )
+        return ThemeModeSetting.allCases.first(where: { $0.key == themeModeKey }) ?? .system
+    }
+
+    /// Set theme mode setting into Preference and notify observers
+    public func setThemeMode(_ value: ThemeModeSetting) {
+        preferenceDataSource.setString(
+            key: PreferenceDefs.prefKeyThemeMode,
+            value: value.key
+        )
+        themeModeLock.lock()
+        let continuations = Array(themeModeContinuations.values)
+        themeModeLock.unlock()
+        for continuation in continuations {
+            continuation.yield(value)
+        }
+    }
+
+    /// Observe theme mode changes
+    public func observeThemeMode() -> AsyncStream<ThemeModeSetting> {
+        let id = UUID()
+        return AsyncStream { continuation in
+            themeModeLock.lock()
+            themeModeContinuations[id] = continuation
+            themeModeLock.unlock()
+
+            continuation.yield(getThemeMode())
+
+            continuation.onTermination = { [weak self] _ in
+                guard let self = self else { return }
+                self.themeModeLock.lock()
+                self.themeModeContinuations.removeValue(forKey: id)
+                self.themeModeLock.unlock()
+            }
+        }
+    }
 }

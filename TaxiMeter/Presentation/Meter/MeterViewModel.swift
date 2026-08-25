@@ -14,19 +14,23 @@ public final class MeterViewModel: ObservableObject {
 
     private let settingRepository: SettingRepository
     private let costRepository: CostRepository
+    private let meterHistoryRepository: MeterHistoryRepository
     private let calculateMeterCostUseCase: CalculateMeterCostUseCase
     private let locationManager = CLLocationManager()
 
     private var meterCalculationTask: Task<Void, Never>?
     private var cityRateContinuation: AsyncStream<Bool>.Continuation?
+    private var lastMeterState: MeterState?
 
     public init(
         settingRepository: SettingRepository = RepositoryProvider.shared.settingRepository,
         costRepository: CostRepository = RepositoryProvider.shared.costRepository,
+        meterHistoryRepository: MeterHistoryRepository = RepositoryProvider.shared.meterHistoryRepository,
         calculateMeterCostUseCase: CalculateMeterCostUseCase = UseCaseProvider.shared.calculateMeterCostUseCase
     ) {
         self.settingRepository = settingRepository
         self.costRepository = costRepository
+        self.meterHistoryRepository = meterHistoryRepository
         self.calculateMeterCostUseCase = calculateMeterCostUseCase
 
         loadAnimationFrames()
@@ -110,6 +114,7 @@ public final class MeterViewModel: ObservableObject {
         meterCalculationTask = Task { @MainActor in
             for await meterState in calculateMeterCostUseCase.execute(costInfo: costInfo, isCityRateStream: isCityRateStream) {
                 guard !Task.isCancelled else { break }
+                self.lastMeterState = meterState
                 self.uiState.currentCost = meterState.currentCost
                 self.uiState.costCounter = meterState.costCounter
                 self.uiState.currentSpeedKph = meterState.currentSpeedKph
@@ -198,6 +203,21 @@ public final class MeterViewModel: ObservableObject {
         meterCalculationTask = nil
         cityRateContinuation?.finish()
         cityRateContinuation = nil
+
+        // Save driving history if cost or distance accumulated
+        if let lastState = lastMeterState, (lastState.currentCost > 0 || lastState.totalDistanceMeters > 0.0) {
+            let history = MeterHistory(
+                timestamp: Int64(Date().timeIntervalSince1970 * 1000),
+                cost: lastState.currentCost,
+                distanceMeters: lastState.totalDistanceMeters,
+                elapsedSeconds: lastState.totalElapsedSeconds
+            )
+            let historyRepo = self.meterHistoryRepository
+            Task {
+                await historyRepo.insertHistory(history)
+            }
+        }
+        lastMeterState = nil
 
         // Restore normal screen sleep timer
         UIApplication.shared.isIdleTimerDisabled = false

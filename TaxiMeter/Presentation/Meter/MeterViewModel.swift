@@ -111,6 +111,20 @@ public final class MeterViewModel: ObservableObject {
         // Keep screen on during driving
         UIApplication.shared.isIdleTimerDisabled = true
 
+        #if canImport(ActivityKit)
+        let initialMeterState = MeterState(
+            currentCost: costInfo.costBase,
+            costCounter: costInfo.distBase,
+            totalDistanceMeters: 0.0,
+            totalElapsedSeconds: 0.0,
+            currentSpeedKph: 0.0,
+            status: .running,
+            isNightRate: false,
+            isCityRate: isCityRate
+        )
+        MeterLiveActivityManager.shared.start(regionName: currentRegion.displayName, initialState: initialMeterState)
+        #endif
+
         meterCalculationTask = Task { @MainActor in
             for await meterState in calculateMeterCostUseCase.execute(costInfo: costInfo, isCityRateStream: isCityRateStream) {
                 guard !Task.isCancelled else { break }
@@ -122,6 +136,10 @@ public final class MeterViewModel: ObservableObject {
                 self.uiState.meterStatus = meterState.status
                 self.uiState.isNightRate = meterState.isNightRate
                 self.uiState.isCityRate = meterState.isCityRate
+
+                #if canImport(ActivityKit)
+                MeterLiveActivityManager.shared.update(state: meterState)
+                #endif
             }
         }
     }
@@ -221,6 +239,10 @@ public final class MeterViewModel: ObservableObject {
 
         // Restore normal screen sleep timer
         UIApplication.shared.isIdleTimerDisabled = false
+
+        #if canImport(ActivityKit)
+        MeterLiveActivityManager.shared.stop()
+        #endif
 
         let currentRegion = settingRepository.getCurrentRegion()
         let costInfo = costRepository.getCostInfo(regionKey: currentRegion.key) ?? CostInfo(region: currentRegion.key)

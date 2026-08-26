@@ -7,6 +7,7 @@ import Foundation
 
 /// Cost Info Entity
 /// - Local Database Entity
+/// - Schema aligned with Android Room 'cost_info' table
 public struct CostInfoEntity: Codable, Equatable, Sendable {
     // Region Key
     public var region: String
@@ -30,6 +31,22 @@ public struct CostInfoEntity: Codable, Equatable, Sendable {
 
     // Custom flag
     public var isCustom: Bool
+
+    public enum CodingKeys: String, CodingKey {
+        case region
+        case costBase = "cost_base"
+        case distBase = "dist_base"
+        case costRunPer = "cost_run_per"
+        case costTimePer = "cost_time_per"
+        case extraRateCity = "extra_rate_city"
+        case extraRateNight1 = "extra_rate_night_1"
+        case extraRateNight2 = "extra_rate_night_2"
+        case nightStartHour1 = "night_start_hour_1"
+        case nightStartHour2 = "night_start_hour_2"
+        case nightEndHour1 = "night_end_hour_1"
+        case nightEndHour2 = "night_end_hour_2"
+        case isCustom = "is_custom"
+    }
 
     public init(
         region: String,

@@ -16,7 +16,34 @@
 		B93FC91E6BFE5D02ED77DECD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB2495B95F583A6802C6101D /* FirebaseAnalytics */; };
 		BF573FB5A3DC255629C88103 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4F2DA2568501EA8EB6D16EE4 /* FirebaseAuth */; };
 		E3B428FFB4C8FDD039814983 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0C4BB8BB5D8EA4556F256167 /* GoogleMobileAds */; };
+		EE9663C8303F38C100EEDA2E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9663C7303F38C100EEDA2E /* WidgetKit.framework */; };
+		EE9663CA303F38C100EEDA2E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9663C9303F38C100EEDA2E /* SwiftUI.framework */; };
+		EE9663D7303F38C200EEDA2E /* TaxiMeterWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EE9663C5303F38C100EEDA2E /* TaxiMeterWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE9663D5303F38C200EEDA2E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE3157B92F6EC919005F8695 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE9663C4303F38C100EEDA2E;
+			remoteInfo = TaxiMeterWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EE9663DC303F38C200EEDA2E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EE9663D7303F38C200EEDA2E /* TaxiMeterWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		627F94E3829C4B5971542897 /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; name = "GoogleService-Info.plist"; path = "TaxiMeter/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -25,12 +52,33 @@
 		A10000000000000000000021 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = TaxiMeter/Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A10000000000000000000022 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = TaxiMeter/Resources/ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE3157C12F6EC919005F8695 /* TaxiMeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxiMeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE9663C5303F38C100EEDA2E /* TaxiMeterWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TaxiMeterWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE9663C7303F38C100EEDA2E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		EE9663C9303F38C100EEDA2E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		EE9663D8303F38C200EEDA2E /* Exceptions for "TaxiMeterWidget" folder in "TaxiMeterWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = EE9663C4303F38C100EEDA2E /* TaxiMeterWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		EE3157C32F6EC919005F8695 /* TaxiMeter */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = TaxiMeter;
+			sourceTree = "<group>";
+		};
+		EE9663CB303F38C100EEDA2E /* TaxiMeterWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE9663D8303F38C200EEDA2E /* Exceptions for "TaxiMeterWidget" folder in "TaxiMeterWidgetExtension" target */,
+			);
+			path = TaxiMeterWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -49,6 +97,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE9663C2303F38C100EEDA2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE9663CA303F38C100EEDA2E /* SwiftUI.framework in Frameworks */,
+				EE9663C8303F38C100EEDA2E /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -56,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				EE3157C32F6EC919005F8695 /* TaxiMeter */,
+				EE9663CB303F38C100EEDA2E /* TaxiMeterWidget */,
+				EE9663C6303F38C100EEDA2E /* Frameworks */,
 				EE3157C22F6EC919005F8695 /* Products */,
 				627F94E3829C4B5971542897 /* GoogleService-Info.plist */,
 				A10000000000000000000010 /* InfoPlist.strings */,
@@ -67,8 +126,18 @@
 			isa = PBXGroup;
 			children = (
 				EE3157C12F6EC919005F8695 /* TaxiMeter.app */,
+				EE9663C5303F38C100EEDA2E /* TaxiMeterWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		EE9663C6303F38C100EEDA2E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EE9663C7303F38C100EEDA2E /* WidgetKit.framework */,
+				EE9663C9303F38C100EEDA2E /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -81,11 +150,13 @@
 				EE3157BD2F6EC919005F8695 /* Sources */,
 				EE3157BE2F6EC919005F8695 /* Frameworks */,
 				EE3157BF2F6EC919005F8695 /* Resources */,
+				EE9663DC303F38C200EEDA2E /* Embed Foundation Extensions */,
 				3695AB21E4261F4B3920AB45 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EE9663D6303F38C200EEDA2E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				EE3157C32F6EC919005F8695 /* TaxiMeter */,
@@ -103,6 +174,28 @@
 			productReference = EE3157C12F6EC919005F8695 /* TaxiMeter.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EE9663C4303F38C100EEDA2E /* TaxiMeterWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE9663D9303F38C200EEDA2E /* Build configuration list for PBXNativeTarget "TaxiMeterWidgetExtension" */;
+			buildPhases = (
+				EE9663C1303F38C100EEDA2E /* Sources */,
+				EE9663C2303F38C100EEDA2E /* Frameworks */,
+				EE9663C3303F38C100EEDA2E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				EE9663CB303F38C100EEDA2E /* TaxiMeterWidget */,
+			);
+			name = TaxiMeterWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = TaxiMeterWidgetExtension;
+			productReference = EE9663C5303F38C100EEDA2E /* TaxiMeterWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -110,11 +203,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2630;
+				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
 					EE3157C02F6EC919005F8695 = {
 						CreatedOnToolsVersion = 26.3;
+					};
+					EE9663C4303F38C100EEDA2E = {
+						CreatedOnToolsVersion = 26.6;
 					};
 				};
 			};
@@ -138,6 +234,7 @@
 			projectRoot = "";
 			targets = (
 				EE3157C02F6EC919005F8695 /* TaxiMeter */,
+				EE9663C4303F38C100EEDA2E /* TaxiMeterWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -150,6 +247,13 @@
 				067CF05EFF076350C51FF010 /* GoogleService-Info.plist in Resources */,
 				A10000000000000000000013 /* InfoPlist.strings in Resources */,
 				A10000000000000000000023 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE9663C3303F38C100EEDA2E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,7 +289,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE9663C1303F38C100EEDA2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE9663D6303F38C200EEDA2E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE9663C4303F38C100EEDA2E /* TaxiMeterWidgetExtension */;
+			targetProxy = EE9663D5303F38C200EEDA2E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A10000000000000000000010 /* InfoPlist.strings */ = {
@@ -423,6 +542,72 @@
 			};
 			name = Release;
 		};
+		EE9663DA303F38C200EEDA2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 69XM48U34A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaxiMeterWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TaxiMeterWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yong.taximeter.TaxiMeterWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE9663DB303F38C200EEDA2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 69XM48U34A;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaxiMeterWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TaxiMeterWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yong.taximeter.TaxiMeterWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -440,6 +625,15 @@
 			buildConfigurations = (
 				EE3157CF2F6EC91B005F8695 /* Debug */,
 				EE3157D02F6EC91B005F8695 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE9663D9303F38C200EEDA2E /* Build configuration list for PBXNativeTarget "TaxiMeterWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE9663DA303F38C200EEDA2E /* Debug */,
+				EE9663DB303F38C200EEDA2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

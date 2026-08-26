@@ -6,10 +6,15 @@
 import Foundation
 
 /// Calculate Meter Cost UseCase
-/// - Emits MeterState on each speed/location update
+/// - Emits MeterState on each speed/location update and surcharge change
 /// - Stateless pipeline combining speed stream and dynamic isCityRate stream
 public struct CalculateMeterCostUseCase: Sendable {
     private let observeSpeedUseCase: ObserveSpeedUseCase
+
+    private enum MeterUpdateEvent {
+        case speed(SpeedData)
+        case surcharge(Bool)
+    }
 
     public init(observeSpeedUseCase: ObserveSpeedUseCase) {
         self.observeSpeedUseCase = observeSpeedUseCase
@@ -24,22 +29,41 @@ public struct CalculateMeterCostUseCase: Sendable {
 
         return AsyncStream { continuation in
             let task = Task {
-                var currentIsCityRate = false
                 var calculator = MeterCostCalculator.newWithCostInfo(costInfo)
                 continuation.yield(calculator.toMeterState())
 
-                let cityRateTask = Task {
-                    for await isCityRate in isCityRateStream {
-                        currentIsCityRate = isCityRate
+                // Stream multiplexer for Speed and Surcharge events
+                let eventStream = AsyncStream<MeterUpdateEvent> { eventContinuation in
+                    let speedTask = Task {
+                        for await speedData in speedStream {
+                            guard !Task.isCancelled else { break }
+                            eventContinuation.yield(.speed(speedData))
+                        }
+                    }
+
+                    let cityRateTask = Task {
+                        for await isCityRate in isCityRateStream {
+                            guard !Task.isCancelled else { break }
+                            eventContinuation.yield(.surcharge(isCityRate))
+                        }
+                    }
+
+                    eventContinuation.onTermination = { _ in
+                        speedTask.cancel()
+                        cityRateTask.cancel()
                     }
                 }
 
-                for await speedData in speedStream {
-                    calculator = calculator.update(speedData: speedData, isCityRate: currentIsCityRate)
+                for await event in eventStream {
+                    guard !Task.isCancelled else { break }
+                    switch event {
+                    case .speed(let speedData):
+                        calculator = calculator.update(speedData: speedData, isCityRate: calculator.isCityRate)
+                    case .surcharge(let isCityRate):
+                        calculator = calculator.updateSurcharge(isCityRate: isCityRate)
+                    }
                     continuation.yield(calculator.toMeterState())
                 }
-
-                cityRateTask.cancel()
             }
 
             continuation.onTermination = { _ in

@@ -134,6 +134,27 @@ public struct MeterCostCalculator: Equatable, Sendable {
         )
     }
 
+    /// Update surcharge states only without draining any cost counter
+    public func updateSurcharge(isCityRate: Bool) -> MeterCostCalculator {
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: Date())
+        let isNightRate = checkIsNightRate(hour: hour)
+        let newSurchargeRate = calculateSurchargeRate(isCityRate: isCityRate, isNightRate: isNightRate, hour: hour)
+
+        return MeterCostCalculator(
+            costInfo: costInfo,
+            accumulatedExtraCost: accumulatedExtraCost,
+            costCounter: costCounter,
+            totalDistanceMeters: totalDistanceMeters,
+            totalElapsedSeconds: totalElapsedSeconds,
+            currentSpeedKph: currentSpeedKph,
+            status: status,
+            isNightRate: isNightRate,
+            isCityRate: isCityRate,
+            surchargeRate: newSurchargeRate
+        )
+    }
+
     /// Calculate total surcharge rate based on active surcharges
     private func calculateSurchargeRate(isCityRate: Bool, isNightRate: Bool, hour: Int) -> Int {
         var surchargeRate = 0

@@ -11,7 +11,6 @@ import SwiftUI
 @main
 struct TaxiMeterWidgetBundle: WidgetBundle {
     var body: some Widget {
-        TaxiMeterWidget()
         TaxiMeterWidgetLiveActivity()
     }
 }

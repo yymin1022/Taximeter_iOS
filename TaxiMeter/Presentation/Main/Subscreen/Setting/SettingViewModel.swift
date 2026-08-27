@@ -13,7 +13,7 @@ public final class SettingViewModel: ObservableObject {
     private let costRepository: CostRepository
     private let settingRepository: SettingRepository
 
-    private static let urlDeveloperBlog = "https://dev-lr.com"
+    private static let urlDeveloperBlog = "https://useful-min.dev"
     private static let urlDeveloperGithub = "https://github.com/yymin1022"
     private static let urlDeveloperLinkedin = "https://linkedin.com/in/yymin1022"
     private static let urlPrivacyPolicy = "https://defcon.or.kr/privacy"

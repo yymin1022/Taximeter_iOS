@@ -351,19 +351,20 @@ private struct MeterAnimationView: View {
         timerTask?.cancel()
         timerTask = nil
 
-        guard !animationFrames.isEmpty, speed > 0.0 else {
+        let displaySpeed = Int(speed)
+        guard !animationFrames.isEmpty, displaySpeed > 0 else {
             frameIndex = 0
             return
         }
 
         let intervalMs: UInt64
-        if speed > 50.0 {
+        if displaySpeed > 50 {
             intervalMs = 142
-        } else if speed > 30.0 {
+        } else if displaySpeed > 30 {
             intervalMs = 200
-        } else if speed > 20.0 {
+        } else if displaySpeed > 20 {
             intervalMs = 250
-        } else if speed > 10.0 {
+        } else if displaySpeed > 10 {
             intervalMs = 333
         } else {
             intervalMs = 500

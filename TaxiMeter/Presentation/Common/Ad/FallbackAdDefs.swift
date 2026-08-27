@@ -29,7 +29,7 @@ public enum FallbackAdDefs {
         iconName: "ic_blog_icon",
         title: "Useful Blog",
         desc: "Developer Useful's IT Blog",
-        targetUrl: "https://dev-lr.com"
+        targetUrl: "https://useful-min.dev"
     )
 
     public static let typerAd = FallbackAd(

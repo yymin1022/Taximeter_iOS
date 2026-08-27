@@ -72,7 +72,6 @@ public final class MeterViewModel: ObservableObject {
         switch authStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
-            startMeterCalculation()
         case .authorizedWhenInUse, .authorizedAlways:
             startMeterCalculation()
         case .denied, .restricted:

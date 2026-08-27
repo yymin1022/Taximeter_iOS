@@ -17,7 +17,20 @@
 		<key>TaxiMeterWidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>EE3157C02F6EC919005F8695</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE9663C4303F38C100EEDA2E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

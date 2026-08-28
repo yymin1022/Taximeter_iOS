@@ -12,7 +12,9 @@
 		27731C7305C499F71036ED05 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 30C6C12243DF94796DA58E72 /* FirebaseFirestore */; };
 		95E042C2DEE5FF3586C1472D /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 685410F4C3659723F8BD9547 /* FirebaseCrashlytics */; };
 		A10000000000000000000013 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000010 /* InfoPlist.strings */; };
+		A10000000000000000000014 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000010 /* InfoPlist.strings */; };
 		A10000000000000000000023 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000020 /* Localizable.strings */; };
+		A10000000000000000000024 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000020 /* Localizable.strings */; };
 		B93FC91E6BFE5D02ED77DECD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = DB2495B95F583A6802C6101D /* FirebaseAnalytics */; };
 		BF573FB5A3DC255629C88103 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4F2DA2568501EA8EB6D16EE4 /* FirebaseAuth */; };
 		E3B428FFB4C8FDD039814983 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 0C4BB8BB5D8EA4556F256167 /* GoogleMobileAds */; };
@@ -254,6 +256,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000000000000000000014 /* InfoPlist.strings in Resources */,
+				A10000000000000000000024 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

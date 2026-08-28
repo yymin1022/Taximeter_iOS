@@ -148,3 +148,11 @@
 "Developer Useful's IT Blog" = "Developer Useful's IT Blog";
 "Typer: ASMR Keyboard Smash" = "Typer: ASMR Keyboard Smash";
 "Keyboard ASMR & Brick Breaker" = "Keyboard ASMR & Brick Breaker";
+
+/* Live Activity */
+"meter_live_activity_title" = "Taxi Meter";
+"Taxi Meter" = "Taxi Meter";
+"Night" = "Night";
+"Out city" = "Out City";
+"live_activity_cost_format" = "₩%@";
+

@@ -2,6 +2,8 @@
 //  TaxiMeterWidgetLiveActivity.swift
 //  TaxiMeterWidget
 //
+//  Created by 유용민 on 8/27/26.
+//
 
 import ActivityKit
 import WidgetKit
@@ -22,7 +24,7 @@ public struct TaxiMeterWidgetLiveActivity: Widget {
                     HStack(spacing: 4) {
                         Image(systemName: "car.fill")
                             .foregroundColor(.white)
-                        Text("택시미터기")
+                        Text(LocalizedStringKey("Taxi Meter"))
                             .font(.caption)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
@@ -33,7 +35,7 @@ public struct TaxiMeterWidgetLiveActivity: Widget {
                 DynamicIslandExpandedRegion(.trailing) {
                     HStack(spacing: 4) {
                         if context.state.isNightRate {
-                            Text("심야")
+                            Text(LocalizedStringKey("Night"))
                                 .font(.system(size: 10, weight: .bold))
                                 .padding(.horizontal, 4)
                                 .padding(.vertical, 2)
@@ -42,7 +44,7 @@ public struct TaxiMeterWidgetLiveActivity: Widget {
                                 .clipShape(Capsule())
                         }
                         if context.state.isCityRate {
-                            Text("시외")
+                            Text(LocalizedStringKey("Out city"))
                                 .font(.system(size: 10, weight: .bold))
                                 .padding(.horizontal, 4)
                                 .padding(.vertical, 2)
@@ -67,7 +69,7 @@ public struct TaxiMeterWidgetLiveActivity: Widget {
 
                         Spacer()
 
-                        Text("\(context.state.currentCost)원")
+                        Text(formattedCost(context.state.currentCost))
                             .font(.system(size: 26, weight: .black, design: .rounded))
                             .foregroundColor(.white)
                     }
@@ -78,7 +80,7 @@ public struct TaxiMeterWidgetLiveActivity: Widget {
                 HStack(spacing: 2) {
                     Image(systemName: "car.fill")
                         .foregroundColor(.white)
-                    Text("\(context.state.currentCost)원")
+                    Text(formattedCost(context.state.currentCost))
                         .font(.system(size: 12, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                 }
@@ -104,13 +106,13 @@ private struct LockScreenLiveActivityView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "car.fill")
                         .foregroundColor(.white)
-                    Text("택시미터기")
+                    Text(LocalizedStringKey("Taxi Meter"))
                         .font(.subheadline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
 
                     if context.state.isNightRate {
-                        Text("심야")
+                        Text(LocalizedStringKey("Night"))
                             .font(.system(size: 10, weight: .bold))
                             .padding(.horizontal, 5)
                             .padding(.vertical, 2)
@@ -119,7 +121,7 @@ private struct LockScreenLiveActivityView: View {
                             .clipShape(Capsule())
                     }
                     if context.state.isCityRate {
-                        Text("시외")
+                        Text(LocalizedStringKey("Out city"))
                             .font(.system(size: 10, weight: .bold))
                             .padding(.horizontal, 5)
                             .padding(.vertical, 2)
@@ -144,10 +146,18 @@ private struct LockScreenLiveActivityView: View {
 
             Spacer()
 
-            Text("\(context.state.currentCost)원")
+            Text(formattedCost(context.state.currentCost))
                 .font(.system(size: 24, weight: .black, design: .rounded))
                 .foregroundColor(.white)
         }
         .padding()
     }
+}
+
+private func formattedCost(_ cost: Int) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    let costString = formatter.string(from: NSNumber(value: cost)) ?? "\(cost)"
+    let format = NSLocalizedString("live_activity_cost_format", comment: "")
+    return String(format: format, costString)
 }

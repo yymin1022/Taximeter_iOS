@@ -148,3 +148,11 @@
 "Developer Useful's IT Blog" = "1인개발자 Useful의 IT블로그";
 "Typer: ASMR Keyboard Smash" = "Typer: ASMR 키보드 벽돌깨기";
 "Keyboard ASMR & Brick Breaker" = "도각도각 힐링 사운드, 나만의 키보드를 만들고, 데스크테리어를 완성해보세요!";
+
+/* Live Activity */
+"meter_live_activity_title" = "택시미터기";
+"Taxi Meter" = "택시미터기";
+"Night" = "심야";
+"Out city" = "시외";
+"live_activity_cost_format" = "%@원";
+

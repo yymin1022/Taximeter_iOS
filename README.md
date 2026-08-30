@@ -1,6 +1,7 @@
-# Project Title
+# TaxiMeter iOS
 
-This is a simple README.md Template repository for my useful projects. This paragraph can be replaced with individual project descriptions.
+This is an iOS application that calculates taxi fare based on Korean taxi fare standards of each region.<br/>
+GPS speed data is used to determine fare calculation in real time.
 
 ## Project Overview
 
@@ -23,7 +24,7 @@ This is a simple README.md Template repository for my useful projects. This para
 | [유용민](https://github.com/yymin1022) |
 |---|
 | <img src="https://github.com/GDSC-CAU/Vridge-Android/assets/62137001/1904f22f-6086-4bc9-8a9d-2f6875b117fe" width="150" /> |
-| Android |
+| iOS |
 | Developer |
 
 ## Screenshots
@@ -36,6 +37,7 @@ This is a simple README.md Template repository for my useful projects. This para
 
 ## Useful links
 
+- [TaxiMeter Apple Appstore](https://apps.apple.com/kr/app/taxi-meter-korea/id6624311119)
 - [GitHub](https://github.com/yymin1022)
 - [Instagram](https://instagram.com/useful_min)
 - [LinkedIn](https://linkedin.com/in/yymin1022)

@@ -5,7 +5,9 @@ GPS speed data is used to determine fare calculation in real time.
 
 ## Project Overview
 
-> This area can be replaced with overview image, or removed.
+> This diagram is generated with Claude
+
+<img src="https://github.com/user-attachments/assets/4d36c5d9-5b09-475e-a193-eb1b122d7df8" width="70%" />
 
 ## Get Started
 

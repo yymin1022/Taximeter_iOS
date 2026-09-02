@@ -9,7 +9,12 @@ GPS speed data is used to determine fare calculation in real time.
 
 ## Get Started
 
-3. Build with xcode, and install to your own device
+1. Clone this repository on your local environment
+```bash
+   yong@ubuntu-server ~/ :$ git clone https://github.com/yymin1022/TaxiMeter_iOS.git
+```
+
+2. Build with xcode, and install to your own device
    ```bash
    yong@ubuntu-server ~/ :$ cd TaxiMeter_iOS
    yong@ubuntu-server ~/TaxiMeter_iOS/ :$ xcodebuild -project TaxiMeter.xcodeproj -scheme TaxiMeter -destination 'generic/platform=iOS' build

@@ -33,4 +33,12 @@ public final class MeterHistoryRepositoryImpl: MeterHistoryRepository, @unchecke
             }
         }
     }
+
+    public func deleteHistory(id: Int64) async {
+        database.deleteMeterHistory(id: id)
+    }
+
+    public func deleteAllHistories() async {
+        database.deleteAllMeterHistories()
+    }
 }

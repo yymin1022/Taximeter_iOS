@@ -1,5 +1,6 @@
 /* Main Tabs */
 "Home" = "Home";
+"History" = "History";
 "Setting" = "Setting";
 "Store" = "Store";
 
@@ -9,6 +10,10 @@
 "Meter" = "Meter";
 "Cost info is updated." = "Cost info is updated.";
 "Cost info update failed. Please check network state." = "Cost info update failed. Please check network state.";
+"Have a safe drive to your destination today!" = "Have a safe drive to your destination today!";
+"Traveled %.1f km so far!" = "Traveled %.1f km so far!";
+"Calculated ₩%@ in total fares with TaxiMeter!" = "Calculated ₩%@ in total fares with TaxiMeter!";
+"Ready for trip #%d!" = "Ready for trip #%d!";
 
 /* Meter Screen */
 "Current Speed" = "Current Speed";
@@ -155,4 +160,19 @@
 "Night" = "Night";
 "Out city" = "Out City";
 "live_activity_cost_format" = "₩%@";
+
+/* History Screen */
+"No driving history yet." = "No driving history yet.";
+"Trips" = "Trips";
+"Total Cost" = "Total Cost";
+"Total Distance" = "Total Distance";
+"Clear all history" = "Clear all history";
+"Clear all driving history" = "Clear all history";
+"Are you sure you want to delete all driving history? This action cannot be undone." = "Are you sure you want to delete all driving history? This action cannot be undone.";
+"history_item_duration" = "%d min %d sec";
+"history_clipboard_copy_format" = "Traveled %.1f km with TaxiMeter.\nTotal Fare: ₩%@\nDuration: %d min %d sec\n%@";
+"Driving history copied to clipboard." = "Driving history copied to clipboard.";
+"Delete" = "Delete";
+"meter_cost" = "₩%@";
+
 

@@ -4,9 +4,11 @@
 //
 
 import SwiftUI
+import UIKit
 
 public struct HistoryView: View {
     @StateObject private var viewModel: HistoryViewModel
+    @State private var toastMessage: String? = nil
 
     public init(viewModel: HistoryViewModel = HistoryViewModel()) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -21,6 +23,31 @@ public struct HistoryView: View {
                 emptyView
             } else {
                 historyList
+            }
+
+            // Toast Overlay
+            if let toastMessage = toastMessage {
+                VStack {
+                    Spacer()
+                    Text(LocalizedStringKey(toastMessage))
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .background(
+                            Capsule()
+                                .fill(Color.black.opacity(0.8))
+                        )
+                        .padding(.bottom, 100)
+                }
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        withAnimation {
+                            self.toastMessage = nil
+                        }
+                    }
+                }
             }
 
             // Clear All Confirm Dialog Overlay
@@ -159,29 +186,58 @@ public struct HistoryView: View {
         let durationText = String(format: durationFormat, minutes, seconds)
         let detailText = "\(distanceKm) · \(durationText)"
 
-        return HStack(spacing: 16) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(dateText)
-                    .font(.headline)
-                    .foregroundColor(.primary)
+        return Button {
+            copyHistory(history)
+        } label: {
+            HStack(spacing: 16) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(dateText)
+                        .font(.headline)
+                        .foregroundColor(.primary)
 
-                Text(detailText)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    Text(detailText)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+
+                Spacer()
+
+                Text(String(format: NSLocalizedString("meter_cost", value: "%@원", comment: ""), formattedCost))
+                    .font(.callout)
+                    .fontWeight(.bold)
+                    .foregroundColor(.blue)
             }
-
-            Spacer()
-
-            Text(String(format: NSLocalizedString("meter_cost", value: "%@원", comment: ""), formattedCost))
-                .font(.callout)
-                .fontWeight(.bold)
-                .foregroundColor(.blue)
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(.secondarySystemGroupedBackground))
+            )
         }
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(.secondarySystemGroupedBackground))
-        )
+        .buttonStyle(.plain)
+    }
+
+    // Copy driving history details to clipboard
+    private func copyHistory(_ history: MeterHistory) {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        let formattedCost = formatter.string(from: NSNumber(value: history.cost)) ?? "\(history.cost)"
+
+        let totalSeconds = Int(history.elapsedSeconds)
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd HH:mm"
+        let formattedDate = dateFormatter.string(from: Date(timeIntervalSince1970: Double(history.timestamp) / 1000.0))
+
+        let distanceKm = history.distanceMeters / 1000.0
+        let copyTemplate = NSLocalizedString("history_clipboard_copy_format", comment: "")
+        let copyText = String(format: copyTemplate, distanceKm, formattedCost, minutes, seconds, formattedDate)
+
+        UIPasteboard.general.string = copyText
+        withAnimation {
+            toastMessage = "Driving history copied to clipboard."
+        }
     }
 
     // Clear all button at bottom of history list

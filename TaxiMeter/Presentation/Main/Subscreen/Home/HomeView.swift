@@ -29,9 +29,7 @@ public struct HomeView: View {
                 appLogo
 
                 // Description Text
-                Text("Touch to start")
-                    .font(.title3)
-                    .foregroundColor(.secondary)
+                descriptionText
 
                 Spacer()
             }
@@ -66,6 +64,26 @@ public struct HomeView: View {
                 Text("Meter")
                     .font(.system(size: 34, weight: .regular))
                     .foregroundColor(.primary)
+            }
+        }
+    }
+
+    // Description Text Component
+    private var descriptionText: some View {
+        VStack(spacing: 8) {
+            if let caption = viewModel.uiState.homeCaption {
+                Text(caption)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+
+                Text(LocalizedStringKey("Touch to start"))
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            } else {
+                Text(LocalizedStringKey("Touch to start"))
+                    .font(.title3)
+                    .foregroundColor(.secondary)
             }
         }
     }

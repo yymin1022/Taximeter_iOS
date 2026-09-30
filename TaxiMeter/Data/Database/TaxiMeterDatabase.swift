@@ -121,6 +121,24 @@ public final class TaxiMeterDatabase: @unchecked Sendable {
         }
     }
 
+    /// Delete meter history entity by ID
+    public func deleteMeterHistory(id: Int64) {
+        queue.sync(flags: .barrier) {
+            var entities = self.loadHistoryEntities()
+            entities.removeAll(where: { $0.id == id })
+            self.saveHistoryEntities(entities)
+            self.notifyHistoryObservers(entities)
+        }
+    }
+
+    /// Delete all meter history entities
+    public func deleteAllMeterHistories() {
+        queue.sync(flags: .barrier) {
+            self.saveHistoryEntities([])
+            self.notifyHistoryObservers([])
+        }
+    }
+
     /// Observe all meter histories
     public func observeMeterHistories() -> AsyncStream<[MeterHistoryEntity]> {
         let id = UUID()

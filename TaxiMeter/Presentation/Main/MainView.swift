@@ -56,12 +56,14 @@ public struct MainView: View {
     @ViewBuilder
     private func screen(for tab: TabInfo) -> some View {
         switch tab {
-        case .setting:
-            SettingView()
         case .home:
             HomeView()
+        case .history:
+            HistoryView()
         case .store:
             StoreView()
+        case .setting:
+            SettingView()
         }
     }
 

@@ -47,7 +47,7 @@ public struct MeterFoldableView: View {
             infoSection
                 .padding(.vertical, 24)
 
-            controlSection
+            controlSection(layout: .grid2x2)
                 .padding(.bottom, 16)
 
             if !uiState.isAdRemoved {
@@ -58,30 +58,31 @@ public struct MeterFoldableView: View {
     }
 
     private var landscapeContent: some View {
-        HStack(spacing: 0) {
-            VStack(alignment: .trailing, spacing: 0) {
-                Spacer()
+        VStack(spacing: 0) {
+            HStack(alignment: .bottom, spacing: 0) {
+                VStack(alignment: .trailing, spacing: 0) {
+                    Spacer()
 
-                displaySection
-                    .padding(.bottom, 48)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-
-            VStack(spacing: 0) {
-                Spacer()
-
-                infoSection
-                    .padding(.vertical, 8)
-
-                controlSection
-                    .padding(.bottom, 12)
-
-                if !uiState.isAdRemoved {
-                    BannerAdView()
-                        .padding(.bottom, 6)
+                    displaySection
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+
+                VStack(spacing: 0) {
+                    Spacer()
+
+                    infoSection
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            .padding(.bottom, 24)
+
+            controlSection(layout: .horizontal1x4)
+                .padding(.bottom, 12)
+
+            if !uiState.isAdRemoved {
+                BannerAdView()
+                    .padding(.bottom, 6)
+            }
         }
     }
 
@@ -102,9 +103,9 @@ public struct MeterFoldableView: View {
         )
     }
 
-    private var controlSection: some View {
+    private func controlSection(layout: MeterControlSection.Layout) -> some View {
         MeterControlSection(
-            layout: .grid2x2,
+            layout: layout,
             isNightRate: uiState.isNightRate,
             isCityRate: uiState.isCityRate,
             onClickStart: onClickStart,

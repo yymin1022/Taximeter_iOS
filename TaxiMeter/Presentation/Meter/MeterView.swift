@@ -11,6 +11,7 @@ public struct MeterView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.meterColors) private var meterColors
     @StateObject private var viewModel: MeterViewModel
+    @State private var hingePosture: HingePosture = .unavailable
 
     public init(viewModel: MeterViewModel = MeterViewModel()) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -28,10 +29,24 @@ public struct MeterView: View {
                     // Top Navigation Bar
                     topBar
 
-                    if isLandscape {
-                        landscapeContent
+                    if isFoldableLayoutActive {
+                        MeterFoldableView(
+                            isLandscape: isLandscape,
+                            uiState: viewModel.uiState,
+                            onClickStart: viewModel.onClickStart,
+                            onClickStop: viewModel.onClickStop,
+                            onClickNightRate: viewModel.onClickNightRate,
+                            onClickCityRate: viewModel.onClickCityRate
+                        )
                     } else {
-                        portraitContent
+                        MeterStandardView(
+                            isLandscape: isLandscape,
+                            uiState: viewModel.uiState,
+                            onClickStart: viewModel.onClickStart,
+                            onClickStop: viewModel.onClickStop,
+                            onClickNightRate: viewModel.onClickNightRate,
+                            onClickCityRate: viewModel.onClickCityRate
+                        )
                     }
                 }
 
@@ -56,6 +71,9 @@ public struct MeterView: View {
                     }
                 }
             }
+        }
+        .onHingePostureChange { newPosture in
+            hingePosture = newPosture
         }
         .onAppear {
             viewModel.checkFirstLaunch()
@@ -93,86 +111,10 @@ public struct MeterView: View {
         .navigationBarHidden(true)
     }
 
-    // MARK: - Portrait & Landscape Contents
-
-    private var portraitContent: some View {
-        VStack(spacing: 0) {
-            // Push all meter content to the bottom (Arrangement.Bottom)
-            Spacer()
-
-            displaySection
-
-            infoSection
-                .padding(.vertical, 24)
-
-            controlSection
-                .padding(.bottom, 16)
-
-            if !viewModel.uiState.isAdRemoved {
-                BannerAdView()
-                    .padding(.bottom, 8)
-            }
-        }
-    }
-
-    private var landscapeContent: some View {
-        HStack(spacing: 0) {
-            // Left Column: Animation & Cost (Aligned to bottom-end matching Android)
-            VStack(alignment: .trailing, spacing: 0) {
-                Spacer()
-
-                displaySection
-                    .padding(.bottom, 48)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-
-            // Right Column: Info & Control Buttons
-            VStack(spacing: 0) {
-                Spacer()
-
-                infoSection
-                    .padding(.vertical, 8)
-
-                controlSection
-                    .padding(.bottom, 12)
-
-                if !viewModel.uiState.isAdRemoved {
-                    BannerAdView()
-                        .padding(.bottom, 6)
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-        }
-    }
-
     // MARK: - Subviews
 
-    private var displaySection: some View {
-        MeterDisplaySection(
-            animationFrames: viewModel.uiState.animationFrames,
-            speedKph: viewModel.uiState.meterStatus == .running ? viewModel.uiState.currentSpeedKph : 0.0,
-            currentCost: viewModel.uiState.currentCost,
-            costCounter: viewModel.uiState.costCounter
-        )
-    }
-
-    private var infoSection: some View {
-        MeterInfoSection(
-            currentSpeedKph: viewModel.uiState.currentSpeedKph,
-            meterStatus: viewModel.uiState.meterStatus,
-            totalDistanceMeters: viewModel.uiState.totalDistanceMeters
-        )
-    }
-
-    private var controlSection: some View {
-        MeterControlSection(
-            isNightRate: viewModel.uiState.isNightRate,
-            isCityRate: viewModel.uiState.isCityRate,
-            onClickStart: viewModel.onClickStart,
-            onClickStop: viewModel.onClickStop,
-            onClickNightRate: viewModel.onClickNightRate,
-            onClickCityRate: viewModel.onClickCityRate
-        )
+    private var isFoldableLayoutActive: Bool {
+        hingePosture.isDualScreenActive || hingePosture.isPartiallyOpen
     }
 
     private var topBar: some View {

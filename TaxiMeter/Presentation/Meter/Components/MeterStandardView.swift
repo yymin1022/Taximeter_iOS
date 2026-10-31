@@ -104,6 +104,7 @@ public struct MeterStandardView: View {
 
     private var controlSection: some View {
         MeterControlSection(
+            layout: .grid2x2,
             isNightRate: uiState.isNightRate,
             isCityRate: uiState.isCityRate,
             onClickStart: onClickStart,

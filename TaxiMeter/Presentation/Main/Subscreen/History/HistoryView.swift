@@ -49,22 +49,22 @@ public struct HistoryView: View {
                     }
                 }
             }
-
-            // Clear All Confirm Dialog Overlay
-            if viewModel.uiState.showClearAllConfirm {
-                CommonSimpleDialog(
-                    title: NSLocalizedString("Clear all driving history", comment: ""),
-                    desc: NSLocalizedString("Are you sure you want to delete all driving history? This action cannot be undone.", comment: ""),
-                    confirmText: NSLocalizedString("Delete", comment: ""),
-                    dismissText: NSLocalizedString("Cancel", comment: ""),
-                    onConfirm: {
-                        viewModel.deleteAllHistories()
-                    },
-                    onDismiss: {
-                        viewModel.hideClearAllConfirm()
-                    }
-                )
+        }
+        .alert(
+            LocalizedStringKey("Clear all driving history"),
+            isPresented: Binding(
+                get: { viewModel.uiState.showClearAllConfirm },
+                set: { if !$0 { viewModel.hideClearAllConfirm() } }
+            )
+        ) {
+            Button(LocalizedStringKey("Cancel"), role: .cancel) {
+                viewModel.hideClearAllConfirm()
             }
+            Button(LocalizedStringKey("Delete"), role: .destructive) {
+                viewModel.deleteAllHistories()
+            }
+        } message: {
+            Text(LocalizedStringKey("Are you sure you want to delete all driving history? This action cannot be undone."))
         }
     }
 

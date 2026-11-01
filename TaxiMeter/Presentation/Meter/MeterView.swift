@@ -29,7 +29,7 @@ public struct MeterView: View {
                     // Top Navigation Bar
                     topBar
 
-                    if isFoldableLayoutActive {
+                    if isFoldableLayoutActive(in: geometry) {
                         MeterFoldableView(
                             isLandscape: isLandscape,
                             uiState: viewModel.uiState,
@@ -72,6 +72,7 @@ public struct MeterView: View {
                 }
             }
         }
+        .ignoresSafeArea(.container, edges: .horizontal)
         .onHingePostureChange { newPosture in
             hingePosture = newPosture
         }
@@ -113,8 +114,14 @@ public struct MeterView: View {
 
     // MARK: - Subviews
 
-    private var isFoldableLayoutActive: Bool {
-        hingePosture.isDualScreenActive || hingePosture.isPartiallyOpen
+    private func isFoldableLayoutActive(in geometry: GeometryProxy) -> Bool {
+        guard hingePosture.isDualScreenActive || hingePosture.isPartiallyOpen else {
+            return false
+        }
+        if #available(iOS 27.1, tvOS 27.1, visionOS 27.1, *) {
+            return !geometry.reservedRegions(kind: .division, options: .includeInactive).isEmpty
+        }
+        return true
     }
 
     private var topBar: some View {

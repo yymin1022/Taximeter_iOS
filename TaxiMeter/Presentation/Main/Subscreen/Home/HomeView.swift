@@ -102,7 +102,7 @@ public struct HomeView: View {
                     Capsule()
                         .fill(Color.black.opacity(0.85))
                 )
-                .padding(.bottom, 90)
+                .padding(.bottom, 24)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {

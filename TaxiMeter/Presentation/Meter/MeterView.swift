@@ -26,9 +26,6 @@ public struct MeterView: View {
                     .ignoresSafeArea()
 
                 VStack(spacing: 0) {
-                    // Top Navigation Bar
-                    topBar
-
                     if isFoldableLayoutActive(in: geometry) {
                         MeterFoldableView(
                             isLandscape: isLandscape,
@@ -108,8 +105,17 @@ public struct MeterView: View {
             Text("Measurement errors may occur depending on GPS status.\nPlease use this app for reference only as differences from actual taxi meters may occur.")
         }
         .meterTheme()
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    viewModel.onClickBack(onDismiss: { dismiss() })
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
+            }
+        }
     }
 
     // MARK: - Subviews
@@ -122,24 +128,6 @@ public struct MeterView: View {
             return !geometry.reservedRegions(kind: .division, options: .includeInactive).isEmpty
         }
         return true
-    }
-
-    private var topBar: some View {
-        HStack {
-            Button(action: {
-                viewModel.onClickBack(onDismiss: { dismiss() })
-            }) {
-                Image(systemName: "chevron.left")
-                    .font(.body.weight(.semibold))
-                    .foregroundColor(meterColors.onBackground)
-                    .frame(width: 40, height: 40)
-                    .applyGlassEffect(in: Circle())
-            }
-
-            Spacer()
-        }
-        .padding(.horizontal, 16)
-        .padding(.top, 8)
     }
 
     private var stopDialogMessage: String {

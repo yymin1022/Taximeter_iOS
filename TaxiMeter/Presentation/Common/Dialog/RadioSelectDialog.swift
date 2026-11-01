@@ -27,51 +27,63 @@ public struct RadioSelectDialog: View {
     }
 
     public var body: some View {
-        NavigationView {
-            List {
-                Section {
-                    ForEach(0..<items.count, id: \.self) { idx in
-                        Button {
-                            selectedIndex = idx
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                                onConfirm(idx)
-                            }
-                        } label: {
-                            HStack {
-                                Text(LocalizedStringKey(items[idx]))
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                if selectedIndex == idx {
-                                    Image(systemName: "checkmark")
-                                        .font(.body.weight(.semibold))
-                                        .foregroundColor(.accentColor)
-                                }
-                            }
-                            .contentShape(Rectangle())
-                        }
-                        .buttonStyle(.plain)
-                    }
+        Group {
+            if #available(iOS 16.0, *) {
+                NavigationStack {
+                    sheetContent
                 }
+            } else {
+                NavigationView {
+                    sheetContent
+                }
+                .navigationViewStyle(.stack)
             }
-            .listStyle(.insetGrouped)
-            .navigationTitle(LocalizedStringKey(title))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        onDismiss()
+        }
+        .ifAvailablePresentationDetentsMediumLarge()
+    }
+
+    private var sheetContent: some View {
+        List {
+            Section {
+                ForEach(0..<items.count, id: \.self) { idx in
+                    Button {
+                        selectedIndex = idx
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                            onConfirm(idx)
+                        }
+                    } label: {
+                        HStack {
+                            Text(LocalizedStringKey(items[idx]))
+                                .foregroundColor(.primary)
+                            Spacer()
+                            if selectedIndex == idx {
+                                Image(systemName: "checkmark")
+                                    .font(.body.weight(.semibold))
+                                    .foregroundColor(.accentColor)
+                            }
+                        }
+                        .contentShape(Rectangle())
                     }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Complete") {
-                        onConfirm(selectedIndex)
-                    }
-                    .font(.body.weight(.semibold))
+                    .buttonStyle(.plain)
                 }
             }
         }
-        .navigationViewStyle(.stack)
-        .ifAvailablePresentationDetentsMediumLarge()
+        .listStyle(.insetGrouped)
+        .navigationTitle(LocalizedStringKey(title))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel") {
+                    onDismiss()
+                }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Complete") {
+                    onConfirm(selectedIndex)
+                }
+                .font(.body.weight(.semibold))
+            }
+        }
     }
 }
 

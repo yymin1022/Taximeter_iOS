@@ -51,9 +51,6 @@ public struct SettingView: View {
             }
         }
         .listStyle(.insetGrouped)
-        .safeAreaInset(edge: .bottom) {
-            Color.clear.frame(height: 84)
-        }
         .onAppear {
             viewModel.loadSettingGroups()
         }

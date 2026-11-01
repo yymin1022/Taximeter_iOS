@@ -38,7 +38,7 @@ public struct HistoryView: View {
                             Capsule()
                                 .fill(Color.black.opacity(0.8))
                         )
-                        .padding(.bottom, 100)
+                        .padding(.bottom, 24)
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))
                 .onAppear {
@@ -49,22 +49,22 @@ public struct HistoryView: View {
                     }
                 }
             }
-
-            // Clear All Confirm Dialog Overlay
-            if viewModel.uiState.showClearAllConfirm {
-                CommonSimpleDialog(
-                    title: NSLocalizedString("Clear all driving history", comment: ""),
-                    desc: NSLocalizedString("Are you sure you want to delete all driving history? This action cannot be undone.", comment: ""),
-                    confirmText: NSLocalizedString("Delete", comment: ""),
-                    dismissText: NSLocalizedString("Cancel", comment: ""),
-                    onConfirm: {
-                        viewModel.deleteAllHistories()
-                    },
-                    onDismiss: {
-                        viewModel.hideClearAllConfirm()
-                    }
-                )
+        }
+        .alert(
+            LocalizedStringKey("Clear all driving history"),
+            isPresented: Binding(
+                get: { viewModel.uiState.showClearAllConfirm },
+                set: { if !$0 { viewModel.hideClearAllConfirm() } }
+            )
+        ) {
+            Button(LocalizedStringKey("Cancel"), role: .cancel) {
+                viewModel.hideClearAllConfirm()
             }
+            Button(LocalizedStringKey("Delete"), role: .destructive) {
+                viewModel.deleteAllHistories()
+            }
+        } message: {
+            Text(LocalizedStringKey("Are you sure you want to delete all driving history? This action cannot be undone."))
         }
     }
 
@@ -113,9 +113,6 @@ public struct HistoryView: View {
                 .listRowBackground(Color.clear)
         }
         .listStyle(.plain)
-        .safeAreaInset(edge: .bottom) {
-            Color.clear.frame(height: 84)
-        }
     }
 
     // Summary Card displaying total statistics

@@ -36,9 +36,6 @@ public struct StoreView: View {
                         .padding(.horizontal, 16)
                         .padding(.bottom, 12)
                 }
-                .safeAreaInset(edge: .bottom) {
-                    Color.clear.frame(height: 84)
-                }
             }
 
             // Toast Overlay
@@ -54,7 +51,7 @@ public struct StoreView: View {
                             Capsule()
                                 .fill(Color.black.opacity(0.8))
                         )
-                        .padding(.bottom, 100)
+                        .padding(.bottom, 24)
                 }
                 .transition(.move(edge: .bottom).combined(with: .opacity))
                 .onAppear {

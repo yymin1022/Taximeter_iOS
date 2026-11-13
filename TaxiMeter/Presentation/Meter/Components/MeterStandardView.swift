@@ -74,14 +74,15 @@ public struct MeterStandardView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
             }
-            .padding(.bottom, 24)
+            .padding(.bottom, 12)
 
             controlSection(layout: .horizontal1x4)
-                .padding(.bottom, 12)
+                .padding(.bottom, 8)
 
             if !uiState.isAdRemoved {
                 BannerAdView()
-                    .padding(.bottom, 6)
+                    .padding(.bottom, 2)
+                    .layoutPriority(1)
             }
         }
     }
@@ -91,7 +92,8 @@ public struct MeterStandardView: View {
             animationFrames: uiState.animationFrames,
             speedKph: uiState.meterStatus == .running ? uiState.currentSpeedKph : 0.0,
             currentCost: uiState.currentCost,
-            costCounter: uiState.costCounter
+            costCounter: uiState.costCounter,
+            isLandscape: isLandscape
         )
     }
 

@@ -10,6 +10,7 @@ import SwiftUI
 public struct MeterView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.meterColors) private var meterColors
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @StateObject private var viewModel: MeterViewModel
     @State private var hingePosture: HingePosture = .unavailable
 
@@ -69,7 +70,10 @@ public struct MeterView: View {
                 }
             }
         }
-        .ignoresSafeArea(.container, edges: .horizontal)
+        .ignoresSafeArea(
+            .container,
+            edges: verticalSizeClass == .compact ? [.horizontal, .top] : .horizontal
+        )
         .onHingePostureChange { newPosture in
             hingePosture = newPosture
         }

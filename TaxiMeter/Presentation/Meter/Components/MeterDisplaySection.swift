@@ -14,17 +14,20 @@ public struct MeterDisplaySection: View {
     public let speedKph: Double
     public let currentCost: Int
     public let costCounter: Int
+    public let isLandscape: Bool
 
     public init(
         animationFrames: [String],
         speedKph: Double,
         currentCost: Int,
-        costCounter: Int
+        costCounter: Int,
+        isLandscape: Bool = false
     ) {
         self.animationFrames = animationFrames
         self.speedKph = speedKph
         self.currentCost = currentCost
         self.costCounter = costCounter
+        self.isLandscape = isLandscape
     }
 
     public var body: some View {
@@ -38,7 +41,7 @@ public struct MeterDisplaySection: View {
                 .frame(width: 90, height: 90)
             }
             .padding(.horizontal, 20)
-            .padding(.vertical, 8)
+            .padding(.vertical, isLandscape ? 4 : 8)
 
             costView
                 .padding(.horizontal, 20)
